@@ -1,0 +1,49 @@
+@import url(./fonts.scss);
+
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+:root {
+  // Colors
+  --purple: #a729f5;
+  --dark-navy: #313e51;
+  --navy: #3b4d66;
+  --grey-navy: #626c7f;
+  --light-bluish: #abc1e1;
+  --light-grey: #f4f6fa;
+  --pure-white: #fff;
+  --green: #26d782;
+  --red: #ee5454;
+
+  // Light mode
+  --body-bg-color: var(--light-grey);
+  --text-color: var(--dark-navy);
+  --heading-lable-color: var(--grey-navy);
+}
+
+body {
+  min-height: 100vh;
+  font-family: Rubik, sans-serif;
+  background-color: var(--body-bg-color);
+  color: var(--text-color);
+
+  #root {
+    max-width: 90rem;
+    margin: auto;
+  }
+
+  footer {
+    display: none;
+  }
+
+  button {
+    border-radius: 0.75rem;
+    border-width: 0;
+    font-family: Rubik, sans-serif;
+    color: var(--text-color);
+  }
+}
