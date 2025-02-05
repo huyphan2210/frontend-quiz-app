@@ -13,32 +13,10 @@ enum Mode {
 }
 const ModeSettings: Record<Mode, () => void> = {
   [Mode.Light]: () => {
-    document.documentElement.style.setProperty(
-      "--body-bg-color",
-      "var(--light-grey)"
-    );
-    document.documentElement.style.setProperty(
-      "--text-color",
-      "var(--dark-navy)"
-    );
-    document.documentElement.style.setProperty(
-      "--heading-lable-color",
-      "var(--grey-navy)"
-    );
+    document.documentElement.classList.remove("dark-mode");
   },
   [Mode.Dark]: () => {
-    document.documentElement.style.setProperty(
-      "--body-bg-color",
-      "var(--dark-navy)"
-    );
-    document.documentElement.style.setProperty(
-      "--text-color",
-      "var(--pure-white)"
-    );
-    document.documentElement.style.setProperty(
-      "--heading-lable-color",
-      "var(--light-bluish)"
-    );
+    document.documentElement.classList.add("dark-mode");
   },
 };
 

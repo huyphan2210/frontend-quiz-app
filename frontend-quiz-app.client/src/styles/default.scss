@@ -25,6 +25,12 @@
   --text-color: var(--dark-navy);
   --heading-lable-color: var(--grey-navy);
 
+  &.dark-mode {
+    --body-bg-color: var(--dark-navy);
+    --text-color: var(--pure-white);
+    --heading-lable-color: var(--light-bluish);
+  }
+
   // Others
   --transition-time: 0.3s;
 }
