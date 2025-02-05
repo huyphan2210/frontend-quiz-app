@@ -1,4 +1,6 @@
 
+using frontend_quiz_app.Server.Services;
+
 namespace frontend_quiz_app.Server
 {
     public class Program
@@ -8,11 +10,13 @@ namespace frontend_quiz_app.Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            AddCustomerServices(builder);
 
             var app = builder.Build();
 
@@ -36,6 +40,11 @@ namespace frontend_quiz_app.Server
             app.MapFallbackToFile("/index.html");
 
             app.Run();
+        }
+
+        private static void AddCustomerServices(IHostApplicationBuilder builder)
+        {
+            builder.Services.AddSingleton<IQuizService, QuizService>();
         }
     }
 }
