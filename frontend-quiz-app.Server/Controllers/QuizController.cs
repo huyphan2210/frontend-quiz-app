@@ -1,4 +1,5 @@
 ﻿using frontend_quiz_app.Server.DTOs;
+using frontend_quiz_app.Server.DTOs.Enums;
 using frontend_quiz_app.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,18 @@ namespace frontend_quiz_app.Server.Controllers
             _quizService = quizService;
         }
 
-
-        [Route("categories")]
-        [HttpGet(Name = "GetQuizCategories")]
-        public IList<QuizCategoryResponse> GetQuizCategories()
+        [HttpGet("categories", Name = "GetQuizCategories")]
+        public ActionResult<IList<QuizCategoryResponse>> GetQuizCategories()
         {
             _logger.LogInformation($"{nameof(GetQuizCategories)} triggered");
-            return _quizService.GetQuizCategories();
+            return Ok(_quizService.GetQuizCategories());
+        }
+
+        [HttpGet(Name = "GetQuizzesByCategory")]
+        public ActionResult<IList<QuizCategoryResponse>> GetQuizzesByCategory([FromQuery] EQuizCategory category)
+        {
+            _logger.LogInformation($"{nameof(GetQuizzesByCategory)} triggered");
+            return Ok(_quizService.GetQuizzesByCategory(category));
         }
     }
 }

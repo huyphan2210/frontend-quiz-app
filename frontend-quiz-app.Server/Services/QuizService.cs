@@ -1,4 +1,5 @@
 ﻿using frontend_quiz_app.Server.DTOs;
+using frontend_quiz_app.Server.DTOs.Enums;
 
 namespace frontend_quiz_app.Server.Services
 {
@@ -15,6 +16,12 @@ namespace frontend_quiz_app.Server.Services
         {
             _logger.LogInformation($"Running {nameof(GetQuizCategories)}");
             return new List<QuizCategoryResponse>();
+        }
+
+        public IList<QuizResponse> GetQuizzesByCategory(EQuizCategory quizCategory)
+        {
+            _logger.LogInformation($"Running {nameof(GetQuizzesByCategory)}");
+            return new List<QuizResponse>();
         }
     }
 }

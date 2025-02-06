@@ -1,6 +1,6 @@
 ﻿namespace frontend_quiz_app.Server.DTOs.Enums
 {
-    public enum EnumQuizCategory
+    public enum EQuizCategory
     {
         Html = 1,
         Css = 2,
