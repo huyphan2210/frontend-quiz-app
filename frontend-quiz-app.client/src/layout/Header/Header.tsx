@@ -5,6 +5,7 @@ import sunLight from "../../assets/svgs/Header/icon-sun-light.svg";
 import sunDark from "../../assets/svgs/Header/icon-sun-dark.svg";
 import moonLight from "../../assets/svgs/Header/icon-moon-light.svg";
 import moonDark from "../../assets/svgs/Header/icon-moon-dark.svg";
+import { getQuizCategories } from "../../services/Quiz.service";
 
 const modeString = "mode";
 enum Mode {
@@ -65,7 +66,10 @@ const Header: FC = () => {
     }
   };
 
-  useEffect(handleCurrentMode, []);
+  useEffect(() => {
+    handleCurrentMode();
+    getQuizCategories();
+  }, []);
 
   return (
     <header className="header">
