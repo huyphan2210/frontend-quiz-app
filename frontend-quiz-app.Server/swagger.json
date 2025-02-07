@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "frontend-quiz-app.Server",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/quiz/categories": {
+      "get": {
+        "tags": [
+          "Quiz"
+        ],
+        "operationId": "GetQuizCategories",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QuizCategoryResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quiz": {
+      "get": {
+        "tags": [
+          "Quiz"
+        ],
+        "operationId": "GetQuizzesByCategory",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QuizResponse"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EQuizCategory": {
+      "format": "int32",
+      "enum": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "type": "integer"
+    },
+    "QuizCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "imgUrl": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/EQuizCategory"
+        }
+      }
+    },
+    "QuizResponse": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "encodedAnswer": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

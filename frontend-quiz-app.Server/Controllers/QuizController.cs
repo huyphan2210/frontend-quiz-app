@@ -25,7 +25,7 @@ namespace frontend_quiz_app.Server.Controllers
         }
 
         [HttpGet(Name = "GetQuizzesByCategory")]
-        public ActionResult<IList<QuizCategoryResponse>> GetQuizzesByCategory([FromQuery] EQuizCategory category)
+        public ActionResult<IList<QuizResponse>> GetQuizzesByCategory([FromQuery] EQuizCategory category)
         {
             _logger.LogInformation($"{nameof(GetQuizzesByCategory)} triggered");
             return Ok(_quizService.GetQuizzesByCategory(category));

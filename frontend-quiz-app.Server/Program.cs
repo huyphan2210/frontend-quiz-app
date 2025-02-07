@@ -1,5 +1,7 @@
 
 using frontend_quiz_app.Server.Services;
+using Microsoft.OpenApi.Extensions;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace frontend_quiz_app.Server
 {
@@ -28,12 +30,12 @@ namespace frontend_quiz_app.Server
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                GenerateSwagger(app);
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
@@ -45,6 +47,16 @@ namespace frontend_quiz_app.Server
         private static void AddCustomerServices(IHostApplicationBuilder builder)
         {
             builder.Services.AddSingleton<IQuizService, QuizService>();
+        }
+
+        private static void GenerateSwagger(WebApplication app)
+        {
+            var filePath = Path.Combine(app.Environment.ContentRootPath, "swagger.json");
+            var swaggerProvider = app.Services.GetRequiredService<ISwaggerProvider>();
+
+            using var writer = new StreamWriter(filePath);
+            var swaggerDoc = swaggerProvider.GetSwagger("v1");
+            swaggerDoc.SerializeAsJson(writer.BaseStream, new Microsoft.OpenApi.OpenApiSpecVersion());
         }
     }
 }
