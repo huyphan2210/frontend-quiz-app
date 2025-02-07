@@ -1,7 +1,5 @@
-const quizRoute = "api/quiz";
+import { QuizService } from "../api";
 
 export const getQuizCategories = async () => {
-  const quizCategoriesResponse = await fetch(quizRoute + "/categories");
-  const data = await quizCategoriesResponse.json();
-  console.log(data);
+  return await QuizService.getQuizCategories();
 };

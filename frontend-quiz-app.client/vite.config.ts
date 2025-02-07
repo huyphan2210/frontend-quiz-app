@@ -51,6 +51,7 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [plugin()],
   resolve: {
     alias: {
