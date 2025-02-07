@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  padding: 1.5rem 1.6125rem;
+  padding: 1.5rem var(--global-padding-inline);
   #mode-toggle {
     display: none;
   }

@@ -6,6 +6,7 @@
   overflow: hidden;
   box-sizing: border-box;
   transition: 0.3s;
+  list-style-type: none;
 }
 
 :root {
@@ -33,6 +34,7 @@
 
   // Others
   --transition-time: 0.3s;
+  --global-padding-inline: 1.625rem;
 }
 
 body {
