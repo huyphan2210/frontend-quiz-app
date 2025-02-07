@@ -6,6 +6,6 @@ namespace frontend_quiz_app.Server.DTOs
     {
         public required string Name { get; set; }
         public required string ImgUrl { get; set; }
-        public EnumQuizCategory Type { get; set; }
+        public EQuizCategory Type { get; set; }
     }
 }

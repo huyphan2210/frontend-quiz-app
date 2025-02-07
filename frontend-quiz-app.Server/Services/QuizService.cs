@@ -15,7 +15,15 @@ namespace frontend_quiz_app.Server.Services
         public IList<QuizCategoryResponse> GetQuizCategories()
         {
             _logger.LogInformation($"Running {nameof(GetQuizCategories)}");
-            return new List<QuizCategoryResponse>();
+            return new List<QuizCategoryResponse>
+            {
+                new()
+                {
+                    ImgUrl = "",
+                    Name = "HTML",
+                    Type = EQuizCategory.Html
+                }
+            };
         }
 
         public IList<QuizResponse> GetQuizzesByCategory(EQuizCategory quizCategory)

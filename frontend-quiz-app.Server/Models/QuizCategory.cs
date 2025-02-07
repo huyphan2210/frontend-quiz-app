@@ -7,6 +7,6 @@ namespace frontend_quiz_app.Server.Models
         public Guid Id { get; set; }
         public required string Name { get; set; }
         public required string ImgUrl { get; set; }
-        public EnumQuizCategory Type { get; set; }
+        public EQuizCategory Type { get; set; }
     }
 }
