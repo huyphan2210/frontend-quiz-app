@@ -64,12 +64,12 @@
     "EQuizCategory": {
       "format": "int32",
       "enum": [
-        1,
-        2,
-        3,
-        4
+        "Html",
+        "Css",
+        "JavaScript",
+        "Accessibility"
       ],
-      "type": "integer"
+      "type": "string"
     },
     "QuizCategoryResponse": {
       "type": "object",

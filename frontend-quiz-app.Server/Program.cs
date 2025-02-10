@@ -1,5 +1,5 @@
-
 using frontend_quiz_app.Server.Services;
+using frontend_quiz_app.Server.Utilities;
 using Microsoft.OpenApi.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -12,11 +12,11 @@ namespace frontend_quiz_app.Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
             AddCustomerServices(builder);
 
