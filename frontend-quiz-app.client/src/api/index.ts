@@ -129,7 +129,7 @@ export class QuizService {
       category?: any | null;
     } = {} as any,
     options: IRequestOptions = {}
-  ): Promise<QuizCategoryResponse[]> {
+  ): Promise<QuizResponse[]> {
     return new Promise((resolve, reject) => {
       let url = basePath + '/api/quiz';
 
@@ -152,4 +152,17 @@ export interface QuizCategoryResponse {
   type?: EQuizCategory;
 }
 
-export type EQuizCategory = 1 | 2 | 3 | 4;
+export interface QuizResponse {
+  /**  */
+  question?: string;
+
+  /**  */
+  encodedAnswer?: string;
+}
+
+export enum EQuizCategory {
+  'Html' = 'Html',
+  'Css' = 'Css',
+  'JavaScript' = 'JavaScript',
+  'Accessibility' = 'Accessibility'
+}
