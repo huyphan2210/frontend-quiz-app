@@ -6,6 +6,7 @@ import Layout from "./Layout";
 import axios from "axios";
 import { serviceOptions } from "./api";
 import { BrowserRouter } from "react-router-dom";
+import StoreProvider from "./stores/StoreProvider";
 
 serviceOptions.axios = axios.create({
   baseURL: import.meta.env.BASE_URL,
@@ -18,7 +19,9 @@ serviceOptions.axios = axios.create({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Layout />
+      <StoreProvider>
+        <Layout />
+      </StoreProvider>
     </BrowserRouter>
   </StrictMode>
 );
