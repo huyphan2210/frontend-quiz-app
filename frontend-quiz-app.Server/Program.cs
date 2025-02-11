@@ -18,7 +18,7 @@ namespace frontend_quiz_app.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
-            AddCustomerServices(builder);
+            AddCustomServices(builder);
 
             var app = builder.Build();
 
@@ -44,7 +44,7 @@ namespace frontend_quiz_app.Server
             app.Run();
         }
 
-        private static void AddCustomerServices(IHostApplicationBuilder builder)
+        private static void AddCustomServices(IHostApplicationBuilder builder)
         {
             builder.Services.AddSingleton<IQuizService, QuizService>();
         }
