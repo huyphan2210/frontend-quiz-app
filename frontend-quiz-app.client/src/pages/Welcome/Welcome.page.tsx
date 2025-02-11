@@ -24,7 +24,7 @@ const WelcomePage: FC = () => {
       <ul>
         {quizCategories.map((category, i) => (
           <li key={i}>
-            <button type="button">
+            <button type="button" className={`category_${i}`}>
               <img src={category.imgUrl} loading="lazy" alt={category.name} />
             </button>
           </li>

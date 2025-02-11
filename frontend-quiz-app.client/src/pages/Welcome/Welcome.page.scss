@@ -1,0 +1,21 @@
+$category-styles: (
+  0: (
+    background-color: #fff1e9,
+  ),
+  1: (
+    background-color: #e0fdef,
+  ),
+  2: (
+    background-color: #ebf0ff,
+  ),
+  3: (
+    background-color: #f6e7ff,
+  ),
+);
+
+@for $i from 0 to 10 {
+  .category_#{$i} {
+    $styles: map-get($category-styles, $i % 4);
+    background-color: map-get($styles, background-color);
+  }
+}
