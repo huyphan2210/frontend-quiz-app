@@ -1,4 +1,11 @@
-import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  MouseEventHandler,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./Header.scss";
 
 import sunLight from "../../assets/svgs/Header/icon-sun-light.svg";
@@ -6,6 +13,8 @@ import sunDark from "../../assets/svgs/Header/icon-sun-dark.svg";
 import moonLight from "../../assets/svgs/Header/icon-moon-light.svg";
 import moonDark from "../../assets/svgs/Header/icon-moon-dark.svg";
 import { getQuizCategories } from "../../services/Quiz.service";
+import { QuizStoreContext } from "../../stores/QuizStore";
+import { observer } from "mobx-react";
 
 const modeString = "mode";
 enum Mode {
@@ -22,6 +31,7 @@ const ModeSettings: Record<Mode, () => void> = {
 };
 
 const Header: FC = () => {
+  const quizStore = useContext(QuizStoreContext);
   const currentMode = (localStorage.getItem(modeString) || Mode.Light) as Mode;
   ModeSettings[currentMode]();
 
@@ -73,6 +83,16 @@ const Header: FC = () => {
 
   return (
     <header className="header">
+      {quizStore?.currentQuizCategory && (
+        <figure>
+          <img
+            src={quizStore.currentQuizCategory.imgUrl}
+            loading="lazy"
+            alt={quizStore.currentQuizCategory.name}
+          ></img>
+          <figcaption>{quizStore.currentQuizCategory.name}</figcaption>
+        </figure>
+      )}
       <div className="header_mode-toggle">
         <img src={toggleSrcImg.sun} alt="Sun Icon" loading="lazy" />
         <input
@@ -94,4 +114,6 @@ const Header: FC = () => {
   );
 };
 
-export default Header;
+const HeaderObserver = observer(Header);
+
+export default HeaderObserver;
