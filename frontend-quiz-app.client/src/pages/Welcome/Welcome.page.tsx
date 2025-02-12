@@ -26,6 +26,7 @@ const WelcomePage: FC = () => {
           <li key={i}>
             <button type="button" className={`category_${i}`}>
               <img src={category.imgUrl} loading="lazy" alt={category.name} />
+              <span>{category.name}</span>
             </button>
           </li>
         ))}
