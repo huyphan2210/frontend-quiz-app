@@ -15,13 +15,15 @@ const WelcomePage: FC = () => {
   }, []);
   return (
     <>
-      <h1>
-        Welcome to the <span>Frontend Quiz!</span>
-      </h1>
-      <small>
-        <i>Pick a subject to get started</i>
-      </small>
-      <ul>
+      <hgroup className="welcome">
+        <h1 className="welcome_heading">
+          Welcome to the <span>Frontend Quiz!</span>
+        </h1>
+        <small className="welcome_description">
+          <i>Pick a subject to get started</i>
+        </small>
+      </hgroup>
+      <ul className="category_list">
         {quizCategories.map((category, i) => (
           <li key={i}>
             <button type="button" className={`category_${i}`}>
