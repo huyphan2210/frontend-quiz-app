@@ -45,7 +45,7 @@ body {
   color: var(--text-color);
 
   #root {
-    max-width: 90rem;
+    max-width: calc(72.5rem + var(--global-padding-inline) * 2);
     margin: auto;
   }
 
