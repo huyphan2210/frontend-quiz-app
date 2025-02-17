@@ -16,10 +16,12 @@ $category-styles: (
 .welcome {
   --welcome-margin: 2.5rem;
   margin-bottom: var(--welcome-margin);
-
+  max-width: 453px;
+  
   &_heading {
     margin-bottom: 0.75rem;
     font-weight: 300;
+    font-size: clamp(2.5rem, 9.5vw, 4rem);
     span {
       font-weight: 500;
     }
@@ -27,37 +29,48 @@ $category-styles: (
 
   &_description {
     color: var(--grey-navy);
+    font-size: clamp(0.875rem, 3.2vw, 1.25rem);
   }
 }
 
 .category_list {
-  --category-padding: 0.75rem;
+  --category-padding: clamp(0.75rem, 1.5vw, 1.25rem);
   --category-item-margin: 0.75rem;
+  width: 100%;
   max-width: 40rem;
   li {
     margin-bottom: var(--category-item-margin);
     &:last-child {
       margin-bottom: unset;
     }
-  }
-  @for $i from 0 to 10 {
-    .category_#{$i} {
-      $styles: map-get($category-styles, $i % 4);
-      img {
-        width: clamp(2.5rem, 12%, 3.5rem);
-        background-color: map-get($styles, background-color);
-        border-radius: 0.5rem;
-      }
 
-      display: flex;
-      align-items: center;
-      padding: var(--category-padding);
-      gap: clamp(1rem, 4vw, 2rem);
-      width: 100%;
-      background-color: var(--button-bg-color);
-      &:hover {
-        cursor: pointer;
+    @for $i from 0 to 10 {
+      $styles: map-get($category-styles, $i % 4);
+      &:nth-child(#{$i + 1}) {
+        .category img {
+          background-color: map-get($styles, background-color);
+        }
       }
+    }
+  }
+
+  .category {
+    font-weight: 500;
+    font-size: clamp(1.125rem, 4.2vw, 1.75rem);
+    
+    img {
+      width: clamp(2.5rem, 12%, 3.5rem);
+      border-radius: 0.5rem;
+    }
+
+    display: flex;
+    align-items: center;
+    padding: var(--category-padding);
+    gap: clamp(1rem, 4vw, 2rem);
+    width: 100%;
+    background-color: var(--button-bg-color);
+    &:hover {
+      cursor: pointer;
     }
   }
 }
@@ -66,10 +79,14 @@ $category-styles: (
   .welcome {
     --welcome-margin: 4rem;
   }
+
+  .category_list {
+    --category-item-margin: 1.5rem;
+  }
 }
 
-@media screen and (min-width: 90rem) {
+@media screen and (min-width: 64rem) {
   .category_list {
-    --category-padding: 1.25rem;
+    max-width: 35.25rem;
   }
 }
