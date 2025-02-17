@@ -35,7 +35,7 @@
 
   // Others
   --transition-time: 0.3s;
-  --global-padding-inline: 1.625rem;
+  --global-padding-inline: 1.5rem;
 }
 
 body {
@@ -47,6 +47,7 @@ body {
   #root {
     max-width: calc(72.5rem + var(--global-padding-inline) * 2);
     margin: auto;
+    padding-inline: var(--global-padding-inline);
   }
 
   footer {
@@ -58,5 +59,11 @@ body {
     border-width: 0;
     font-family: Rubik, sans-serif;
     color: var(--text-color);
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  :root {
+    --global-padding-inline: 4rem;
   }
 }
