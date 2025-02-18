@@ -19,7 +19,8 @@ $category-styles: (
   max-width: 453px;
   
   &_heading {
-    margin-bottom: 0.75rem;
+    --welcome-heading-margin: 1rem;
+    margin-bottom: var(--welcome-heading-margin);
     font-weight: 300;
     font-size: clamp(2.5rem, 9.5vw, 4rem);
     span {
@@ -69,9 +70,6 @@ $category-styles: (
     gap: clamp(1rem, 4vw, 2rem);
     width: 100%;
     background-color: var(--button-bg-color);
-    &:hover {
-      cursor: pointer;
-    }
   }
 }
 
@@ -86,6 +84,11 @@ $category-styles: (
 }
 
 @media screen and (min-width: 64rem) {
+  .welcome {
+    &_heading {
+      --welcome-heading-margin: 3rem;
+    }
+  }
   .category_list {
     max-width: 35.25rem;
   }
