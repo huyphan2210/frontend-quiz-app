@@ -58,7 +58,17 @@ $category-styles: (
   .category {
     font-weight: 500;
     font-size: clamp(1.125rem, 4.2vw, 1.75rem);
-    
+    border-radius: 0.75rem;
+    border-width: 0;
+    font-family: Rubik, sans-serif;
+    color: var(--text-color);
+    text-decoration: none;
+
+    &:hover, &:focus-visible {
+      transition: none;
+      outline: solid var(--purple) 3px;
+    }
+
     img {
       width: clamp(2.5rem, 12%, 3.5rem);
       border-radius: 0.5rem;
