@@ -1,5 +1,11 @@
-import { QuizService } from "../api";
+import { EQuizCategory, QuizService } from "../api";
 
-export const getQuizCategories = async () => {
-  return await QuizService.getQuizCategories();
+const getQuizCategories = () => {
+  return QuizService.getQuizCategories();
 };
+
+const getQuizzesByCategory = (categoryType: EQuizCategory) => {
+  return QuizService.getQuizzesByCategory({ category: categoryType });
+};
+
+export { getQuizCategories, getQuizzesByCategory };
