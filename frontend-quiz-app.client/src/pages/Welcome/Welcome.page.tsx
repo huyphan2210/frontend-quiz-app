@@ -1,15 +1,13 @@
-import { FC, MouseEventHandler, useLayoutEffect, useState } from "react";
+import { FC, MouseEventHandler, useLayoutEffect } from "react";
 import "./Welcome.page.scss";
-import { getQuizCategories } from "../../services/Quiz.service";
-import { QuizCategoryResponse } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../../utilities/global-var";
+import { observer } from "mobx-react";
+import { CheckAndReturnQuizStore } from "../../utilities/storeHelper";
 
 const WelcomePage: FC = () => {
+  const quizStore = CheckAndReturnQuizStore();
   const navigation = useNavigate();
-  const [quizCategories, setQuizCategories] = useState<QuizCategoryResponse[]>(
-    []
-  );
 
   const handleNavigation: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
@@ -17,9 +15,8 @@ const WelcomePage: FC = () => {
   };
 
   useLayoutEffect(() => {
-    getQuizCategories().then((quizCategories) =>
-      setQuizCategories(quizCategories)
-    );
+    quizStore.setCurrentQuizCategory();
+    quizStore.getQuizCategories();
   }, []);
   return (
     <>
@@ -32,21 +29,24 @@ const WelcomePage: FC = () => {
         </small>
       </hgroup>
       <ul className="category_list">
-        {quizCategories.map((category, i) => (
-          <li key={i}>
-            <a
-              onClick={handleNavigation}
-              href={`${Pages.Quiz}?category=${category.name?.toLowerCase()}`}
-              className="category"
-            >
-              <img src={category.imgUrl} loading="lazy" alt={category.name} />
-              <span>{category.name}</span>
-            </a>
-          </li>
-        ))}
+        {quizStore.quizCategories &&
+          quizStore.quizCategories.map((category, i) => (
+            <li key={i}>
+              <a
+                onClick={handleNavigation}
+                href={`${Pages.Quiz}?category=${category.name?.toLowerCase()}`}
+                className="category"
+              >
+                <img src={category.imgUrl} loading="lazy" alt={category.name} />
+                <span>{category.name}</span>
+              </a>
+            </li>
+          ))}
       </ul>
     </>
   );
 };
 
-export default WelcomePage;
+const WelcomePageObserver = observer(WelcomePage);
+
+export default WelcomePageObserver;
