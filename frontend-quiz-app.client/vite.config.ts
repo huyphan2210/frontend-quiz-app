@@ -60,7 +60,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "^/api/quiz/categories": {
+      "^/api/quiz": {
         target: "https://localhost:7278/",
         secure: false,
       },
