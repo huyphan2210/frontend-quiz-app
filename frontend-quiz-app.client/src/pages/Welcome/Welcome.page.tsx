@@ -37,7 +37,12 @@ const WelcomePage: FC = () => {
                 href={`${Pages.Quiz}?category=${category.name?.toLowerCase()}`}
                 className="category"
               >
-                <img src={category.imgUrl} loading="lazy" alt={category.name} />
+                <img
+                  style={{ backgroundColor: category.imgBackgroundColor }}
+                  src={category.imgUrl}
+                  loading="lazy"
+                  alt={category.name}
+                />
                 <span>{category.name}</span>
               </a>
             </li>

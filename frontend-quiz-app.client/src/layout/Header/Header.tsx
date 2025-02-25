@@ -79,6 +79,9 @@ const Header: FC = () => {
       {quizStore.currentQuizCategory && (
         <figure className="header_quiz-category">
           <img
+            style={{
+              backgroundColor: quizStore.currentQuizCategory.imgBackgroundColor,
+            }}
             src={quizStore.currentQuizCategory.imgUrl}
             loading="lazy"
             alt={quizStore.currentQuizCategory.name}
