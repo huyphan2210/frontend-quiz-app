@@ -7,6 +7,7 @@ namespace frontend_quiz_app.Server.DTOs
     {
         public required string Name { get; set; }
         public required string ImgUrl { get; set; }
+        public string? ImgBackgroundColor { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public EQuizCategory Type { get; set; }
     }

@@ -80,6 +80,9 @@
         "imgUrl": {
           "type": "string"
         },
+        "imgBackgroundColor": {
+          "type": "string"
+        },
         "type": {
           "$ref": "#/definitions/EQuizCategory"
         }

@@ -149,6 +149,9 @@ export interface QuizCategoryResponse {
   imgUrl?: string;
 
   /**  */
+  imgBackgroundColor?: string;
+
+  /**  */
   type?: EQuizCategory;
 }
 
