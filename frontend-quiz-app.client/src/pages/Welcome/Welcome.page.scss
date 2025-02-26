@@ -1,8 +1,10 @@
+@import "./../../styles/mixins.scss";
+
 .welcome {
   --welcome-margin: 2.5rem;
   margin-bottom: var(--welcome-margin);
   max-width: 453px;
-  
+
   &_heading {
     --welcome-heading-margin: 1rem;
     margin-bottom: var(--welcome-heading-margin);
@@ -14,13 +16,11 @@
   }
 
   &_description {
-    color: var(--grey-navy);
-    font-size: clamp(0.875rem, 3.2vw, 1.25rem);
+    @include small-italic-text();
   }
 }
 
 .category_list {
-  --category-padding: clamp(0.75rem, 1.5vw, 1.25rem);
   --category-item-margin: 0.75rem;
   width: 100%;
   max-width: 40rem;
@@ -32,15 +32,10 @@
   }
 
   .category {
-    font-weight: 500;
-    font-size: clamp(1.125rem, 4.2vw, 1.75rem);
-    border-radius: 0.75rem;
-    border-width: 0;
-    font-family: Rubik, sans-serif;
-    color: var(--text-color);
-    text-decoration: none;
+    @include option-style();
 
-    &:hover, &:focus-visible {
+    &:hover,
+    &:focus-visible {
       transition: none;
       outline: solid var(--purple) 3px;
     }
@@ -49,13 +44,6 @@
       width: clamp(2.5rem, 12%, 3.5rem);
       border-radius: 0.25rem;
     }
-
-    display: flex;
-    align-items: center;
-    padding: var(--category-padding);
-    gap: clamp(1rem, 4vw, 2rem);
-    width: 100%;
-    background-color: var(--button-bg-color);
   }
 }
 

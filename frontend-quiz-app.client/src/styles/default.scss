@@ -23,12 +23,12 @@
   // Light mode
   --body-bg-color: var(--light-grey);
   --text-color: var(--dark-navy);
-  --heading-label-color: var(--grey-navy);
+  --small-italic-text-color: var(--grey-navy);
   --button-bg-color: var(--pure-white);
    &.dark-mode {
     --body-bg-color: var(--dark-navy);
     --text-color: var(--pure-white);
-    --heading-label-color: var(--light-bluish);
+    --small-italic-text-color: var(--light-bluish);
     --button-bg-color: var(--navy);
   }
 
