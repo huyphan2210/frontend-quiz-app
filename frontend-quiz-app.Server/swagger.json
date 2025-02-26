@@ -91,11 +91,24 @@
     "QuizResponse": {
       "type": "object",
       "properties": {
+        "order": {
+          "format": "int32",
+          "type": "integer"
+        },
         "question": {
           "type": "string"
         },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "encodedAnswer": {
           "type": "string"
+        },
+        "category": {
+          "$ref": "#/definitions/EQuizCategory"
         }
       }
     }

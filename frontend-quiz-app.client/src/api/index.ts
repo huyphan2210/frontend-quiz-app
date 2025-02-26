@@ -157,10 +157,19 @@ export interface QuizCategoryResponse {
 
 export interface QuizResponse {
   /**  */
+  order?: number;
+
+  /**  */
   question?: string;
 
   /**  */
+  options?: string[];
+
+  /**  */
   encodedAnswer?: string;
+
+  /**  */
+  category?: EQuizCategory;
 }
 
 export enum EQuizCategory {
