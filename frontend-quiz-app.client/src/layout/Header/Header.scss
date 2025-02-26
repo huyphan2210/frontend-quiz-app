@@ -5,7 +5,7 @@
   min-height: calc(
     var(--header-content-height) + var(--header-padding-block) * 2
   );
-  padding-block: var(--header-padding-block);
+  padding-block: calc(var(--header-padding-block) + 2rem);
 
   &_quiz-category {
     font-weight: 500;
@@ -15,7 +15,7 @@
     color: var(--text-color);
     display: flex;
     align-items: center;
-    gap: clamp(1rem, 4vw, 2rem);
+    gap: clamp(1rem, 4vw, 1.5rem);
 
     img {
       width: clamp(2.5rem, 12%, 3.5rem);
@@ -73,7 +73,8 @@
     --header-padding-block: 2.5rem;
     --header-content-height: 3.5rem;
     margin-bottom: 9px;
-
+    padding-block: var(--header-padding-block);
+    
     &_mode-toggle {
       &_label {
         width: 3rem;
