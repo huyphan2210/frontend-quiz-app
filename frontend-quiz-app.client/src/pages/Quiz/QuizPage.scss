@@ -1,0 +1,26 @@
+@import "./../../styles/mixins.scss";
+
+.quiz {
+  &_small-text {
+    @include small-italic-text();
+  }
+
+  &_question {
+    font-size: clamp(1.25rem, 5vw, 2.25rem);
+  }
+
+  &_form {
+    &_option-list {
+      &_choice {
+        input {
+          display: none;
+        }
+
+        label {
+          flex-grow: 1;
+          @include option-style();
+        }
+      }
+    }
+  }
+}
