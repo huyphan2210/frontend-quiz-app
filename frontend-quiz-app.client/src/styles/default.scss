@@ -52,32 +52,10 @@ body {
   footer {
     display: none;
   }
-
-  button {
-    border-radius: 0.75rem;
-    border-width: 0;
-    font-family: Rubik, sans-serif;
-    color: var(--text-color);
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &:hover, &:focus-visible {
-      transition: none;
-      outline: solid var(--purple) 3px;
-    }
-  }
 }
 
 @media screen and (min-width: 48rem) {
   :root {
     --global-padding-inline: 4rem;
-  }
-
-  body {
-    button {
-      border-radius: 1.5rem;
-    }
   }
 }
