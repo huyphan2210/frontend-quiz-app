@@ -1,24 +1,39 @@
 @import "./../../styles/mixins.scss";
 
 .quiz {
-  &_small-text {
-    @include small-italic-text();
-  }
+  &_text {
+    @include left-section-attributes();
 
-  &_question {
-    font-size: clamp(1.25rem, 5vw, 2.25rem);
+    &_small-text {
+      @include small-italic-text();
+    }
+
+    &_question {
+      font-size: clamp(1.25rem, 5vw, 2.25rem);
+    }
   }
 
   &_form {
+    @include right-section-attributes();
     &_option-list {
-      &_choice {
-        input {
-          display: none;
-        }
-
-        label {
-          flex-grow: 1;
+      &_item {
+        &_choice {
           @include option-style();
+
+          span:first-child {
+            width: clamp(2.5rem, 12%, 3.5rem);
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+          }
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:focus-visible {
+            transition: none;
+            outline: solid var(--purple) 3px;
+          }
         }
       }
     }

@@ -1,9 +1,7 @@
 @import "./../../styles/mixins.scss";
 
 .welcome {
-  --welcome-margin: 2.5rem;
-  margin-bottom: var(--welcome-margin);
-  max-width: 453px;
+  @include left-section-attributes();
 
   &_heading {
     --welcome-heading-margin: 1rem;
@@ -21,15 +19,7 @@
 }
 
 .category_list {
-  --category-item-margin: 0.75rem;
-  width: 100%;
-  max-width: 40rem;
-  li {
-    margin-bottom: var(--category-item-margin);
-    &:last-child {
-      margin-bottom: unset;
-    }
-  }
+  @include right-section-attributes();
 
   .category {
     @include option-style();
@@ -48,12 +38,7 @@
 }
 
 @media screen and (min-width: 48rem) {
-  .welcome {
-    --welcome-margin: 4rem;
-  }
-
   .category_list {
-    --category-item-margin: 1.5rem;
     .category {
       img {
         border-radius: 0.5rem;
@@ -67,8 +52,5 @@
     &_heading {
       --welcome-heading-margin: 3rem;
     }
-  }
-  .category_list {
-    max-width: 35.25rem;
   }
 }
