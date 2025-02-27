@@ -39,19 +39,27 @@ const QuizPage: FC = () => {
 
   return (
     <>
-      <small className="quiz_small-text">
-        <i>
-          Question {currentQuiz?.order} of{" "}
-          {quizStore.currentQuizzes?.length || 0}
-        </i>
-      </small>
-      <h1 className="quiz_question">{currentQuiz?.question}</h1>
+      <hgroup className="quiz_text">
+        <small className="quiz_text_small-text">
+          <i>
+            Question {currentQuiz?.order} of{" "}
+            {quizStore.currentQuizzes?.length || 0}
+          </i>
+        </small>
+        <h1 className="quiz_text_question">{currentQuiz?.question}</h1>
+        <span className="quiz_text_time"></span>
+      </hgroup>
       <form className="quiz_form">
         <ul className="quiz_form_option-list">
           {currentQuiz?.options?.map((option, index) => (
-            <li className="quiz_form_option-list_choice" key={index}>
-              <input id={`option-${index}`} type="checkbox"></input>
-              <label htmlFor={`option-${index}`}>{option}</label>
+            <li className="quiz_form_option-list_item" key={index}>
+              <button
+                type="button"
+                className="quiz_form_option-list_item_choice"
+              >
+                <span>{String.fromCharCode(index + 65)}</span>
+                <span>{option}</span>
+              </button>
             </li>
           ))}
         </ul>
