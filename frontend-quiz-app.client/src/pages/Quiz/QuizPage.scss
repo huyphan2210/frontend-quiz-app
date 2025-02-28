@@ -25,14 +25,66 @@
             aspect-ratio: 1;
             display: grid;
             place-items: center;
+            background-color: var(--body-bg-color);
+            border-radius: 0.375rem;
           }
+
           &:hover {
             cursor: pointer;
+            span:first-child {
+              background-color: #f6e7ff;
+              color: var(--purple);
+            }
           }
 
           &:focus-visible {
             transition: none;
+            outline: none;
+            span:first-child {
+              background-color: #f6e7ff;
+              color: var(--purple);
+            }
+          }
+
+          &.active {
+            transition: 0s outline;
             outline: solid var(--purple) 3px;
+            span:first-child {
+              color: var(--pure-white);
+              background-color: var(--purple);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .quiz {
+    &_form {
+      &_option-list {
+        &_item {
+          &_choice {
+            span:first-child {
+              border-radius: 0.75rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  .quiz {
+    &_form {
+      &_option-list {
+        &_item {
+          &_choice {
+            span:first-child {
+              border-radius: 0.5rem;
+            }
           }
         }
       }

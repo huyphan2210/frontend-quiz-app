@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect, useState } from "react";
+import { FC, MouseEventHandler, useLayoutEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./QuizPage.scss";
 import { EQuizCategory, QuizResponse } from "../../api";
@@ -37,6 +37,17 @@ const QuizPage: FC = () => {
     setCurrentQuizCategory();
   }, []);
 
+  const clickOptionHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const options = document.querySelectorAll(
+      ".quiz_form_option-list_item_choice"
+    ) as NodeListOf<HTMLButtonElement>;
+
+    options.forEach((option) => option.classList.remove("active"));
+
+    const clickedOption = e.currentTarget as HTMLButtonElement;
+    clickedOption.classList.add("active");
+  };
+
   return (
     <>
       <hgroup className="quiz_text">
@@ -56,6 +67,7 @@ const QuizPage: FC = () => {
               <button
                 type="button"
                 className="quiz_form_option-list_item_choice"
+                onClick={clickOptionHandler}
               >
                 <span>{String.fromCharCode(index + 65)}</span>
                 <span>{option}</span>
