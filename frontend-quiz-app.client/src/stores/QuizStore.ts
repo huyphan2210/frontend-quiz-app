@@ -5,6 +5,7 @@ import {
   getQuizzesByCategory,
   getQuizCategories as apiGetQuizCategories,
 } from "../services/Quiz.service";
+import { exportKeyBase64, generateKey } from "../utilities/quizUtilities";
 
 const categoryBackgroundColorRecords: Record<number, string> = {
   [0]: "#fff1e9",
@@ -14,6 +15,7 @@ const categoryBackgroundColorRecords: Record<number, string> = {
 };
 
 export default class QuizStore {
+  currentEncryptKey?: CryptoKey;
   currentQuizCategory?: QuizCategoryResponse;
   currentQuizzes?: QuizResponse[];
   quizCategories?: QuizCategoryResponse[];
@@ -21,6 +23,7 @@ export default class QuizStore {
   constructor() {
     makeAutoObservable(this, {
       currentQuizCategory: observable,
+      currentEncryptKey: observable,
       getQuizCategories: action,
       setCurrentQuizCategory: action,
     });
@@ -39,8 +42,12 @@ export default class QuizStore {
       return this.getQuizzesByCategory(this.currentQuizCategory?.type);
   }
 
-  getQuizzesByCategory(categoryType: EQuizCategory) {
-    return getQuizzesByCategory(categoryType).then(
+  async getQuizzesByCategory(categoryType: EQuizCategory) {
+    if (!this.currentEncryptKey) {
+      this.currentEncryptKey = await generateKey();
+    }
+    const keyBase64 = await exportKeyBase64(this.currentEncryptKey);
+    return getQuizzesByCategory(categoryType, keyBase64).then(
       (quizzes) => (this.currentQuizzes = quizzes)
     );
   }

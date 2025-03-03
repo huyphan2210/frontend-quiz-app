@@ -4,8 +4,16 @@ const getQuizCategories = () => {
   return QuizService.getQuizCategories();
 };
 
-const getQuizzesByCategory = (categoryType: EQuizCategory) => {
-  return QuizService.getQuizzesByCategory({ category: categoryType });
+const getQuizzesByCategory = (
+  categoryType: EQuizCategory,
+  encryptKeyBase64: string
+) => {
+  return QuizService.getQuizzesByCategory({
+    category: categoryType,
+    body: {
+      encryptKeyBase64,
+    },
+  });
 };
 
 export { getQuizCategories, getQuizzesByCategory };
