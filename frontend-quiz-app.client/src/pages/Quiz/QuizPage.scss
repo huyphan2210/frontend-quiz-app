@@ -15,7 +15,9 @@
 
   &_form {
     @include right-section-attributes();
+    --space: 0.75rem;
     &_option-list {
+      margin-bottom: var(--space);
       &_item {
         &_choice {
           @include option-style();
@@ -35,6 +37,14 @@
               background-color: #f6e7ff;
               color: var(--purple);
             }
+
+            &:disabled {
+              cursor: not-allowed;
+              span:first-child {
+                background-color: var(--body-bg-color);
+                color: inherit;
+              }
+            }
           }
 
           &:focus-visible {
@@ -53,9 +63,51 @@
               color: var(--pure-white);
               background-color: var(--purple);
             }
+
+            &.wrong-answer {
+              outline-color: var(--red);
+              span:first-child {
+                background-color: var(--red);
+              }
+            }
+
+            &.right-answer {
+              outline-color: var(--green);
+              span:first-child {
+                background-color: var(--green);
+              }
+            }
           }
         }
       }
+    }
+
+    &_submit-button, &_next-button {
+      width: 100%;
+      color: var(--pure-white);
+      background-color: var(--purple);
+      padding: var(--space);
+      border: none;
+      border-radius: 0.75rem;
+      font-family: inherit;
+      font-size: clamp(1.125rem, 4.2vw, 1.75rem);
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover,
+      &:focus-visible {
+        outline: none;
+        background-color: #d394fa;
+      }
+
+      &:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+      }
+    }
+
+    &_next-button {
+      display: none;
     }
   }
 }
@@ -63,6 +115,7 @@
 @media screen and (min-width: 48rem) {
   .quiz {
     &_form {
+      --space: 2rem;
       &_option-list {
         &_item {
           &_choice {
@@ -71,6 +124,10 @@
             }
           }
         }
+      }
+
+      &_submit-button, &_next-button {
+        border-radius: 1.5rem;
       }
     }
   }

@@ -1,8 +1,16 @@
-import { FC, MouseEventHandler, useLayoutEffect, useState } from "react";
+import {
+  FC,
+  FormEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import "./QuizPage.scss";
 import { EQuizCategory, QuizResponse } from "../../api";
 import { CheckAndReturnQuizStore } from "../../utilities/storeHelper";
+import { decryptData } from "../../utilities/quizUtilities";
 
 const categoryRecords: Record<string, EQuizCategory> = {
   [EQuizCategory.Html.toLowerCase()]: EQuizCategory.Html,
@@ -17,6 +25,7 @@ const QuizPage: FC = () => {
   const quizStore = CheckAndReturnQuizStore();
 
   const [currentQuiz, setCurrentQuiz] = useState<QuizResponse>();
+  const [choice, setChoice] = useState<string>("");
 
   const setCurrentQuizCategory = () => {
     quizStore
@@ -37,15 +46,85 @@ const QuizPage: FC = () => {
     setCurrentQuizCategory();
   }, []);
 
-  const clickOptionHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const resetStyle = () => {
     const options = document.querySelectorAll(
       ".quiz_form_option-list_item_choice"
     ) as NodeListOf<HTMLButtonElement>;
+    options.forEach((option) => {
+      option.disabled = false;
+      option.classList.remove("right-answer");
+      option.classList.remove("wrong-answer");
+      option.classList.remove("active");
+    });
 
+    const submitButton = document.querySelector(
+      ".quiz_form_submit-button"
+    ) as HTMLButtonElement;
+    const nextButton = document.querySelector(
+      ".quiz_form_next-button"
+    ) as HTMLButtonElement;
+    submitButton.style.display = "unset";
+    nextButton.style.display = "";
+  };
+
+  useEffect(resetStyle, [currentQuiz]);
+
+  const clickOptionHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    choice: string
+  ) => {
+    const options = document.querySelectorAll(
+      ".quiz_form_option-list_item_choice"
+    ) as NodeListOf<HTMLButtonElement>;
     options.forEach((option) => option.classList.remove("active"));
 
     const clickedOption = e.currentTarget as HTMLButtonElement;
     clickedOption.classList.add("active");
+    setChoice(choice);
+
+    const submitButton = document.querySelector(
+      ".quiz_form_submit-button"
+    ) as HTMLButtonElement;
+    submitButton.disabled = false;
+  };
+
+  const formSubmitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    const options = document.querySelectorAll(
+      ".quiz_form_option-list_item_choice"
+    ) as NodeListOf<HTMLButtonElement>;
+    options.forEach((option) => (option.disabled = true));
+
+    const candidateChosenButton = document.querySelector(
+      ".quiz_form_option-list_item_choice.active"
+    ) as HTMLButtonElement;
+
+    if (currentQuiz?.encodedAnswer && quizStore.currentEncryptKey) {
+      decryptData(currentQuiz.encodedAnswer, quizStore.currentEncryptKey).then(
+        (answer) => {
+          if (answer === choice) {
+            candidateChosenButton.classList.add("right-answer");
+          } else {
+            candidateChosenButton.classList.add("wrong-answer");
+          }
+        }
+      );
+    }
+    const submitButton = document.querySelector(
+      ".quiz_form_submit-button"
+    ) as HTMLButtonElement;
+    const nextButton = document.querySelector(
+      ".quiz_form_next-button"
+    ) as HTMLButtonElement;
+    submitButton.style.display = "none";
+    nextButton.style.display = "unset";
+  };
+
+  const nextQuestionHandler = () => {
+    const nextQuizOrder = currentQuiz?.order || 1;
+    if (quizStore.currentQuizzes && quizStore.currentQuizzes[nextQuizOrder]) {
+      setCurrentQuiz(quizStore.currentQuizzes[nextQuizOrder]);
+    }
   };
 
   return (
@@ -60,14 +139,14 @@ const QuizPage: FC = () => {
         <h1 className="quiz_text_question">{currentQuiz?.question}</h1>
         <span className="quiz_text_time"></span>
       </hgroup>
-      <form className="quiz_form">
+      <form className="quiz_form" onSubmit={formSubmitHandler}>
         <ul className="quiz_form_option-list">
           {currentQuiz?.options?.map((option, index) => (
             <li className="quiz_form_option-list_item" key={index}>
               <button
                 type="button"
                 className="quiz_form_option-list_item_choice"
-                onClick={clickOptionHandler}
+                onClick={(e) => clickOptionHandler(e, option)}
               >
                 <span>{String.fromCharCode(index + 65)}</span>
                 <span>{option}</span>
@@ -75,6 +154,16 @@ const QuizPage: FC = () => {
             </li>
           ))}
         </ul>
+        <button disabled className="quiz_form_submit-button" type="submit">
+          Submit Answer
+        </button>
+        <button
+          onClick={() => nextQuestionHandler()}
+          className="quiz_form_next-button"
+          type="button"
+        >
+          Next Question
+        </button>
       </form>
     </>
   );
