@@ -1,5 +1,6 @@
-﻿using frontend_quiz_app.Server.DTOs;
-using frontend_quiz_app.Server.DTOs.Enums;
+﻿using frontend_quiz_app.Server.DTOs.Enums;
+using frontend_quiz_app.Server.DTOs.Request;
+using frontend_quiz_app.Server.DTOs.Responses;
 using frontend_quiz_app.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +25,11 @@ namespace frontend_quiz_app.Server.Controllers
             return Ok(_quizService.GetQuizCategories());
         }
 
-        [HttpGet(Name = "GetQuizzesByCategory")]
-        public ActionResult<IList<QuizResponse>> GetQuizzesByCategory([FromQuery] EQuizCategory category)
+        [HttpPost(Name = "GetQuizzesByCategory")]
+        public ActionResult<IList<QuizResponse>> GetQuizzesByCategory([FromQuery] EQuizCategory category, QuizRequest quizRequest)
         {
             _logger.LogInformation($"{nameof(GetQuizzesByCategory)} triggered");
-            return Ok(_quizService.GetQuizzesByCategory(category));
+            return Ok(_quizService.GetQuizzesByCategory(category, quizRequest));
         }
     }
 }

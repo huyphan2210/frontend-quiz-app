@@ -127,14 +127,20 @@ export class QuizService {
     params: {
       /**  */
       category?: any | null;
+      /**  */
+      body?: QuizRequest;
     } = {} as any,
     options: IRequestOptions = {}
   ): Promise<QuizResponse[]> {
     return new Promise((resolve, reject) => {
       let url = basePath + '/api/quiz';
 
-      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+      const configs: IRequestConfig = getConfigs('post', 'application/json', url, options);
       configs.params = { category: params['category'] };
+
+      let data = params['body'];
+
+      configs.data = data;
 
       axios(configs, resolve, reject);
     });
@@ -155,6 +161,11 @@ export interface QuizCategoryResponse {
   type?: EQuizCategory;
 }
 
+export interface QuizRequest {
+  /**  */
+  encryptKeyBase64?: string;
+}
+
 export interface QuizResponse {
   /**  */
   order?: number;
@@ -166,10 +177,18 @@ export interface QuizResponse {
   options?: string[];
 
   /**  */
-  encodedAnswer?: string;
+  encodedAnswer?: TextEncryptedData;
 
   /**  */
   category?: EQuizCategory;
+}
+
+export interface TextEncryptedData {
+  /**  */
+  encrypted?: string;
+
+  /**  */
+  iv?: string;
 }
 
 export enum EQuizCategory {

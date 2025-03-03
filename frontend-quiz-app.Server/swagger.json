@@ -30,11 +30,16 @@
       }
     },
     "/api/quiz": {
-      "get": {
+      "post": {
         "tags": [
           "Quiz"
         ],
         "operationId": "GetQuizzesByCategory",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
         "produces": [
           "text/plain",
           "application/json",
@@ -44,6 +49,13 @@
           {
             "in": "query",
             "name": "category"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/QuizRequest"
+            }
           }
         ],
         "responses": {
@@ -88,6 +100,14 @@
         }
       }
     },
+    "QuizRequest": {
+      "type": "object",
+      "properties": {
+        "encryptKeyBase64": {
+          "type": "string"
+        }
+      }
+    },
     "QuizResponse": {
       "type": "object",
       "properties": {
@@ -105,10 +125,21 @@
           }
         },
         "encodedAnswer": {
-          "type": "string"
+          "$ref": "#/definitions/TextEncryptedData"
         },
         "category": {
           "$ref": "#/definitions/EQuizCategory"
+        }
+      }
+    },
+    "TextEncryptedData": {
+      "type": "object",
+      "properties": {
+        "encrypted": {
+          "type": "string"
+        },
+        "iv": {
+          "type": "string"
         }
       }
     }
