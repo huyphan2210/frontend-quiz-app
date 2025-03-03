@@ -1,7 +1,7 @@
 ﻿using frontend_quiz_app.Server.DTOs.Enums;
 using System.Text.Json.Serialization;
 
-namespace frontend_quiz_app.Server.DTOs
+namespace frontend_quiz_app.Server.DTOs.Responses
 {
     public class QuizCategoryResponse
     {
