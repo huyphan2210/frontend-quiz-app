@@ -1,7 +1,6 @@
 import {
   FC,
   FormEventHandler,
-  MouseEventHandler,
   useEffect,
   useLayoutEffect,
   useState,
@@ -137,7 +136,7 @@ const QuizPage: FC = () => {
           </i>
         </small>
         <h1 className="quiz_text_question">{currentQuiz?.question}</h1>
-        <span className="quiz_text_time"></span>
+        <progress className="quiz_text_time-bar" value={1} max="60"></progress>
       </hgroup>
       <form className="quiz_form" onSubmit={formSubmitHandler}>
         <ul className="quiz_form_option-list">

@@ -1,4 +1,4 @@
-@import "./../../styles/mixins.scss";
+@use "./../../styles/mixins.scss" as *;
 
 .quiz {
   &_text {
@@ -9,13 +9,17 @@
     }
 
     &_question {
+      font-weight: 500;
       font-size: clamp(1.25rem, 5vw, 2.25rem);
+      margin-top: clamp(0.75rem, 3.4vw, 1.6875rem);
+      line-height: 120%;
     }
   }
 
   &_form {
-    @include right-section-attributes();
     --space: 0.75rem;
+    @include right-section-attributes();
+    
     &_option-list {
       margin-bottom: var(--space);
       &_item {
