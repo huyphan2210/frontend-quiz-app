@@ -14,12 +14,37 @@
       margin-top: clamp(0.75rem, 3.4vw, 1.6875rem);
       line-height: 120%;
     }
+
+    &_time-bar {
+      --corner: 0.25rem;
+      
+      width: 100%;
+      appearance: none;
+      background-color: var(--button-bg-color);
+      padding: 0.25rem;
+      border-radius: calc(var(--corner) * 2);
+
+      &::-webkit-progress-bar {
+        background-color: inherit;
+        border-radius: var(--corner);
+      }
+
+      &::-webkit-progress-value {
+        background-color: var(--purple);
+        border-radius: var(--corner);
+        transition: width 0.5s ease-in-out;
+      }
+
+      &::-moz-progress-bar {
+        background-color: inherit;
+      }
+    }
   }
 
   &_form {
     --space: 0.75rem;
     @include right-section-attributes();
-    
+
     &_option-list {
       margin-bottom: var(--space);
       &_item {
@@ -68,14 +93,14 @@
               background-color: var(--purple);
             }
 
-            &.wrong-answer {
+            &.wrong-option {
               outline-color: var(--red);
               span:first-child {
                 background-color: var(--red);
               }
             }
 
-            &.right-answer {
+            &.right-option {
               outline-color: var(--green);
               span:first-child {
                 background-color: var(--green);
@@ -86,7 +111,8 @@
       }
     }
 
-    &_submit-button, &_next-button {
+    &_submit-button,
+    &_next-button {
       width: 100%;
       color: var(--pure-white);
       background-color: var(--purple);
@@ -130,7 +156,8 @@
         }
       }
 
-      &_submit-button, &_next-button {
+      &_submit-button,
+      &_next-button {
         border-radius: 1.5rem;
       }
     }
