@@ -23,6 +23,9 @@ const QuizPage: FC = () => {
   const categoryName = searchParams.get("category") || "";
   const quizStore = CheckAndReturnQuizStore();
 
+  const SECONDS_LIMIT = 30;
+
+  const [secondsPassed, setSecondPassed] = useState(0);
   const [currentQuiz, setCurrentQuiz] = useState<QuizResponse>();
   const [choice, setChoice] = useState<string>("");
 
@@ -45,29 +48,6 @@ const QuizPage: FC = () => {
     setCurrentQuizCategory();
   }, []);
 
-  const resetStyle = () => {
-    const options = document.querySelectorAll(
-      ".quiz_form_option-list_item_choice"
-    ) as NodeListOf<HTMLButtonElement>;
-    options.forEach((option) => {
-      option.disabled = false;
-      option.classList.remove("right-answer");
-      option.classList.remove("wrong-answer");
-      option.classList.remove("active");
-    });
-
-    const submitButton = document.querySelector(
-      ".quiz_form_submit-button"
-    ) as HTMLButtonElement;
-    const nextButton = document.querySelector(
-      ".quiz_form_next-button"
-    ) as HTMLButtonElement;
-    submitButton.style.display = "unset";
-    nextButton.style.display = "";
-  };
-
-  useEffect(resetStyle, [currentQuiz]);
-
   const clickOptionHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     choice: string
@@ -89,6 +69,10 @@ const QuizPage: FC = () => {
 
   const formSubmitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if (secondsPassed < SECONDS_LIMIT) {
+      setSecondPassed(SECONDS_LIMIT);
+      return;
+    }
     const options = document.querySelectorAll(
       ".quiz_form_option-list_item_choice"
     ) as NodeListOf<HTMLButtonElement>;
@@ -101,14 +85,26 @@ const QuizPage: FC = () => {
     if (currentQuiz?.encodedAnswer && quizStore.currentEncryptKey) {
       decryptData(currentQuiz.encodedAnswer, quizStore.currentEncryptKey).then(
         (answer) => {
+          options.forEach((option) => {
+            const optionText =
+              option.querySelector("span:last-child")?.innerHTML;
+            if (optionText === answer) {
+              option.classList.add("right-answer");
+            }
+            if (optionText === choice && optionText !== answer) {
+              option.classList.add("wrong-answer");
+            }
+          });
+
           if (answer === choice) {
-            candidateChosenButton.classList.add("right-answer");
+            candidateChosenButton?.classList.add("right-option");
           } else {
-            candidateChosenButton.classList.add("wrong-answer");
+            candidateChosenButton?.classList.add("wrong-option");
           }
         }
       );
     }
+
     const submitButton = document.querySelector(
       ".quiz_form_submit-button"
     ) as HTMLButtonElement;
@@ -126,6 +122,42 @@ const QuizPage: FC = () => {
     }
   };
 
+  const resetStates = () => {
+    const options = document.querySelectorAll(
+      ".quiz_form_option-list_item_choice"
+    ) as NodeListOf<HTMLButtonElement>;
+    options.forEach((option) => {
+      option.disabled = false;
+      option.classList.remove("right-option");
+      option.classList.remove("wrong-option");
+      option.classList.remove("active");
+    });
+
+    const submitButton = document.querySelector(
+      ".quiz_form_submit-button"
+    ) as HTMLButtonElement;
+    const nextButton = document.querySelector(
+      ".quiz_form_next-button"
+    ) as HTMLButtonElement;
+    submitButton.style.display = "unset";
+    nextButton.style.display = "";
+    setSecondPassed(0);
+  };
+
+  useEffect(resetStates, [currentQuiz]);
+
+  useEffect(() => {
+    const index = setTimeout(() => {
+      setSecondPassed((prev) => prev + 1);
+    }, 1000);
+
+    if (secondsPassed >= SECONDS_LIMIT) {
+      clearTimeout(index);
+      const form = document.querySelector(".quiz_form") as HTMLFormElement;
+      form.requestSubmit();
+    }
+  }, [secondsPassed]);
+
   return (
     <>
       <hgroup className="quiz_text">
@@ -136,7 +168,11 @@ const QuizPage: FC = () => {
           </i>
         </small>
         <h1 className="quiz_text_question">{currentQuiz?.question}</h1>
-        <progress className="quiz_text_time-bar" value={1} max="60"></progress>
+        <progress
+          className="quiz_text_time-bar"
+          value={secondsPassed}
+          max={SECONDS_LIMIT}
+        ></progress>
       </hgroup>
       <form className="quiz_form" onSubmit={formSubmitHandler}>
         <ul className="quiz_form_option-list">
