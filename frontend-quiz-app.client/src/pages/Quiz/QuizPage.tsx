@@ -11,6 +11,9 @@ import { EQuizCategory, QuizResponse } from "../../api";
 import { CheckAndReturnQuizStore } from "../../utilities/storeHelper";
 import { decryptData } from "../../utilities/quizUtilities";
 
+import iconCorrect from "../../assets/svgs/Main/icon-correct.svg";
+import iconIncorrect from "../../assets/svgs/Main/icon-incorrect.svg";
+
 const categoryRecords: Record<string, EQuizCategory> = {
   [EQuizCategory.Html.toLowerCase()]: EQuizCategory.Html,
   [EQuizCategory.Css.toLowerCase()]: EQuizCategory.Css,
@@ -87,12 +90,9 @@ const QuizPage: FC = () => {
         (answer) => {
           options.forEach((option) => {
             const optionText =
-              option.querySelector("span:last-child")?.innerHTML;
+              option.querySelector("span:nth-child(2)")?.innerHTML;
             if (optionText === answer) {
               option.classList.add("right-answer");
-            }
-            if (optionText === choice && optionText !== answer) {
-              option.classList.add("wrong-answer");
             }
           });
 
@@ -128,6 +128,7 @@ const QuizPage: FC = () => {
     ) as NodeListOf<HTMLButtonElement>;
     options.forEach((option) => {
       option.disabled = false;
+      option.classList.remove("right-answer");
       option.classList.remove("right-option");
       option.classList.remove("wrong-option");
       option.classList.remove("active");
@@ -185,6 +186,18 @@ const QuizPage: FC = () => {
               >
                 <span>{String.fromCharCode(index + 65)}</span>
                 <span>{option}</span>
+                <img
+                  className="quiz_form_option-list_item_choice_icon--correct"
+                  src={iconCorrect}
+                  loading="lazy"
+                  alt="Correct Icon"
+                />
+                <img
+                  className="quiz_form_option-list_item_choice_icon--incorrect"
+                  src={iconIncorrect}
+                  loading="lazy"
+                  alt="Incorrect Icon"
+                />
               </button>
             </li>
           ))}
