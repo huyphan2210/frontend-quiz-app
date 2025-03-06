@@ -4,6 +4,10 @@
   &_text {
     @include left-section-attributes();
 
+    display: flex;
+    flex-direction: column;
+    max-height: 28.25rem;
+
     &_small-text {
       @include small-italic-text();
     }
@@ -17,12 +21,13 @@
 
     &_time-bar {
       --corner: 0.25rem;
-      
+
       width: 100%;
       appearance: none;
       background-color: var(--button-bg-color);
       padding: 0.25rem;
       border-radius: calc(var(--corner) * 2);
+      margin-top: clamp(1.5rem, 6vw, 2.5rem);
 
       &::-webkit-progress-bar {
         background-color: inherit;
@@ -50,6 +55,18 @@
       &_item {
         &_choice {
           @include option-style();
+
+          padding-block: clamp(0.75rem, 1.4vw, 1.125rem);
+          position: relative;
+
+          img {
+            display: none;
+            position: absolute;
+            top: 50%;
+            right: clamp(0.75rem, 1.4vw, 1.125rem);
+            transform: translate(0, -50%);
+            width: clamp(2rem, 6.9vw, 2.5rem);
+          }
 
           span:first-child {
             width: clamp(2.5rem, 12%, 3.5rem);
@@ -98,12 +115,25 @@
               span:first-child {
                 background-color: var(--red);
               }
+              .quiz_form_option-list_item_choice_icon {
+                &--incorrect {
+                  display: unset;
+                }
+              }
             }
 
             &.right-option {
               outline-color: var(--green);
               span:first-child {
                 background-color: var(--green);
+              }
+            }
+          }
+
+          &.right-answer {
+            .quiz_form_option-list_item_choice_icon {
+              &--correct {
+                display: unset;
               }
             }
           }
@@ -166,6 +196,11 @@
 
 @media screen and (min-width: 64rem) {
   .quiz {
+    &_text {
+      &_time-bar {
+        margin-top: auto;
+      }
+    }
     &_form {
       &_option-list {
         &_item {
