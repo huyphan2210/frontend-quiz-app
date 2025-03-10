@@ -1,5 +1,7 @@
+using frontend_quiz_app.Server.ORM;
 using frontend_quiz_app.Server.Services;
 using frontend_quiz_app.Server.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -19,6 +21,7 @@ namespace frontend_quiz_app.Server
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
             AddCustomServices(builder);
+            AddSqlLiteConnection(builder);
 
             var app = builder.Build();
 
@@ -47,6 +50,12 @@ namespace frontend_quiz_app.Server
         private static void AddCustomServices(IHostApplicationBuilder builder)
         {
             builder.Services.AddSingleton<IQuizService, QuizService>();
+        }
+
+        private static void AddSqlLiteConnection(IHostApplicationBuilder builder)
+        {
+            builder.Services.AddDbContext<QuizDbContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
         }
 
         private static void GenerateSwagger(WebApplication app)
