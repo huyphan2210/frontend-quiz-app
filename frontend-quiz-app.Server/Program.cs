@@ -1,4 +1,6 @@
 using frontend_quiz_app.Server.ORM;
+using frontend_quiz_app.Server.Repositories.QuizCategoryReadRepository;
+using frontend_quiz_app.Server.Repositories.QuizReadRepository;
 using frontend_quiz_app.Server.Services;
 using frontend_quiz_app.Server.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,8 @@ namespace frontend_quiz_app.Server
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
             AddCustomServices(builder);
+            AddCustomRepositories(builder);
+
             AddSqlLiteConnection(builder);
 
             var app = builder.Build();
@@ -49,7 +53,13 @@ namespace frontend_quiz_app.Server
 
         private static void AddCustomServices(IHostApplicationBuilder builder)
         {
-            builder.Services.AddSingleton<IQuizService, QuizService>();
+            builder.Services.AddScoped<IQuizService, QuizService>();
+        }
+
+        private static void AddCustomRepositories(IHostApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IQuizReadRepository, QuizReadRepository>();
+            builder.Services.AddScoped<IQuizCategoryReadRepository, QuizCategoryReadRepository>();
         }
 
         private static void AddSqlLiteConnection(IHostApplicationBuilder builder)
