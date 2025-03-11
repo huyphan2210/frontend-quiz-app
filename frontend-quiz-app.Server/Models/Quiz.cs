@@ -2,9 +2,8 @@
 
 namespace frontend_quiz_app.Server.Models
 {
-    public class Quiz
+    public class Quiz : BaseModel
     {
-        public Guid Id { get; set; }
         public required string Question { get; set; }
         public required List<string> Options { get; set; }
         public required string Answer { get; set; }
