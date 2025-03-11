@@ -28,7 +28,7 @@ namespace frontend_quiz_app.Server.ORM.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Quizs",
+                name: "Quizzes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -39,7 +39,7 @@ namespace frontend_quiz_app.Server.ORM.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Quizs", x => x.Id);
+                    table.PrimaryKey("PK_Quizzes", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
@@ -54,7 +54,7 @@ namespace frontend_quiz_app.Server.ORM.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Quizs",
+                table: "Quizzes",
                 columns: new[] { "Id", "Answer", "Category", "Options", "Question" },
                 values: new object[,]
                 {
@@ -109,7 +109,7 @@ namespace frontend_quiz_app.Server.ORM.Migrations
                 name: "QuizCategories");
 
             migrationBuilder.DropTable(
-                name: "Quizs");
+                name: "Quizzes");
         }
     }
 }

@@ -11,7 +11,7 @@ using frontend_quiz_app.Server.ORM;
 namespace frontend_quiz_app.Server.ORM.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
-    [Migration("20250310031733_InitialCreate")]
+    [Migration("20250310074335_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -43,7 +43,7 @@ namespace frontend_quiz_app.Server.ORM.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Quizs");
+                    b.ToTable("Quizzes");
 
                     b.HasData(
                         new

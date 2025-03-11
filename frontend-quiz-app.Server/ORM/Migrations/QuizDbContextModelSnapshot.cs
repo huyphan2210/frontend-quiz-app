@@ -40,7 +40,7 @@ namespace frontend_quiz_app.Server.ORM.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Quizs");
+                    b.ToTable("Quizzes");
 
                     b.HasData(
                         new
