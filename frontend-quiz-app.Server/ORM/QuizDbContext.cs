@@ -5,14 +5,11 @@ namespace frontend_quiz_app.Server.ORM
 {
     public class QuizDbContext : DbContext
     {
-        public DbSet<Quiz> Quizs { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<QuizCategory> QuizCategories { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public QuizDbContext(DbContextOptions<QuizDbContext> options) : base(options)
         {
-            var dbPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "quiz.db");
-            optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
