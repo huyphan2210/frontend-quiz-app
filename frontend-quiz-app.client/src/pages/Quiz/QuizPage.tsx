@@ -89,8 +89,9 @@ const QuizPage: FC = () => {
       decryptData(currentQuiz.encodedAnswer, quizStore.currentEncryptKey).then(
         (answer) => {
           options.forEach((option) => {
-            const optionText =
-              option.querySelector("span:nth-child(2)")?.innerHTML;
+            const optionText = (
+              option.querySelector("span:nth-child(2)") as HTMLSpanElement
+            ).innerText;
             if (optionText === answer) {
               option.classList.add("right-answer");
             }
