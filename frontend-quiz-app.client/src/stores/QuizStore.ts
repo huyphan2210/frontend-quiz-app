@@ -7,13 +7,6 @@ import {
 } from "../services/Quiz.service";
 import { exportKeyBase64, generateKey } from "../utilities/quizUtilities";
 
-const categoryBackgroundColorRecords: Record<number, string> = {
-  [0]: "#fff1e9",
-  [1]: "#e0fdef",
-  [2]: "#ebf0ff",
-  [3]: "#f6e7ff",
-};
-
 export default class QuizStore {
   currentEncryptKey?: CryptoKey;
   currentQuizCategory?: QuizCategoryResponse;
@@ -24,6 +17,7 @@ export default class QuizStore {
     makeAutoObservable(this, {
       currentQuizCategory: observable,
       currentEncryptKey: observable,
+      quizCategories: observable,
       getQuizCategories: action,
       setCurrentQuizCategory: action,
     });
@@ -32,7 +26,6 @@ export default class QuizStore {
   getQuizCategories() {
     return apiGetQuizCategories().then((categories) => {
       this.quizCategories = categories;
-      this.enrichQuizCategories();
     });
   }
 
@@ -50,13 +43,6 @@ export default class QuizStore {
     return getQuizzesByCategory(categoryType, keyBase64).then(
       (quizzes) => (this.currentQuizzes = quizzes)
     );
-  }
-
-  private enrichQuizCategories() {
-    this.quizCategories?.forEach((category, i) => {
-      if (category.imgBackgroundColor) return;
-      category.imgBackgroundColor = categoryBackgroundColorRecords[i % 4];
-    });
   }
 }
 
