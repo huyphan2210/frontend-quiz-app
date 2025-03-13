@@ -152,7 +152,8 @@
     }
 
     &_submit-button,
-    &_next-button {
+    &_next-button,
+    &_see-result {
       width: 100%;
       color: var(--pure-white);
       background-color: var(--purple);
@@ -163,6 +164,7 @@
       font-size: clamp(1.125rem, 4.2vw, 1.75rem);
       font-weight: 500;
       cursor: pointer;
+      text-decoration: none;
 
       &:hover,
       &:focus-visible {
@@ -176,7 +178,13 @@
       }
     }
 
-    &_next-button {
+    &_see-result {
+      display: block;
+      text-align: center;
+    }
+
+    &_next-button,
+    &_see-result {
       display: none;
     }
   }
@@ -197,7 +205,8 @@
       }
 
       &_submit-button,
-      &_next-button {
+      &_next-button,
+      &_see-result {
         border-radius: 1.5rem;
       }
     }

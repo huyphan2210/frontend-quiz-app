@@ -5,7 +5,7 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "./QuizPage.scss";
 import { EQuizCategory, QuizResponse } from "../../api";
 import { CheckAndReturnQuizStore } from "../../utilities/storeHelper";
@@ -13,6 +13,7 @@ import { decryptData } from "../../utilities/quizUtilities";
 
 import iconCorrect from "../../assets/svgs/Main/icon-correct.svg";
 import iconIncorrect from "../../assets/svgs/Main/icon-incorrect.svg";
+import { Pages } from "../../utilities/global-var";
 
 const categoryRecords: Record<string, EQuizCategory> = {
   [EQuizCategory.Html.toLowerCase()]: EQuizCategory.Html,
@@ -32,6 +33,8 @@ const QuizPage: FC = () => {
   const [currentQuiz, setCurrentQuiz] = useState<QuizResponse>();
   const [choice, setChoice] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const setCurrentQuizCategory = () => {
     quizStore
       .setCurrentQuizCategory(
@@ -44,7 +47,9 @@ const QuizPage: FC = () => {
 
   useLayoutEffect(() => {
     if (!quizStore.quizCategories || quizStore.quizCategories.length == 0) {
-      quizStore.getQuizCategories().then(() => setCurrentQuizCategory());
+      quizStore.getQuizCategories().then(() => {
+        setCurrentQuizCategory();
+      });
       return;
     }
 
@@ -99,6 +104,7 @@ const QuizPage: FC = () => {
 
           if (answer === choice) {
             candidateChosenButton?.classList.add("right-option");
+            quizStore.setCurrentScore(quizStore.currentScore + 1);
           } else {
             candidateChosenButton?.classList.add("wrong-option");
           }
@@ -112,8 +118,15 @@ const QuizPage: FC = () => {
     const nextButton = document.querySelector(
       ".quiz_form_next-button"
     ) as HTMLButtonElement;
+    const seeResultButton = document.querySelector(
+      ".quiz_form_see-result"
+    ) as HTMLAnchorElement;
     submitButton.style.display = "none";
-    nextButton.style.display = "unset";
+    if (currentQuiz?.order === quizStore.currentQuizzes?.length) {
+      seeResultButton.style.display = "block";
+    } else {
+      nextButton.style.display = "unset";
+    }
   };
 
   const nextQuestionHandler = () => {
@@ -141,8 +154,12 @@ const QuizPage: FC = () => {
     const nextButton = document.querySelector(
       ".quiz_form_next-button"
     ) as HTMLButtonElement;
-    submitButton.style.display = "unset";
+    const seeResultButton = document.querySelector(
+      ".quiz_form_see-result"
+    ) as HTMLAnchorElement;
+    submitButton.style.display = "";
     nextButton.style.display = "";
+    seeResultButton.style.display = "";
     setSecondPassed(0);
   };
 
@@ -213,6 +230,16 @@ const QuizPage: FC = () => {
         >
           Next Question
         </button>
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(Pages.Result);
+          }}
+          href={Pages.Result}
+          className="quiz_form_see-result"
+        >
+          See Result
+        </a>
       </form>
     </>
   );
