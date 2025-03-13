@@ -11,15 +11,18 @@ export default class QuizStore {
   currentEncryptKey?: CryptoKey;
   currentQuizCategory?: QuizCategoryResponse;
   currentQuizzes?: QuizResponse[];
+  currentScore = 0;
   quizCategories?: QuizCategoryResponse[];
 
   constructor() {
     makeAutoObservable(this, {
       currentQuizCategory: observable,
       currentEncryptKey: observable,
+      currentScore: observable,
       quizCategories: observable,
       getQuizCategories: action,
       setCurrentQuizCategory: action,
+      setCurrentScore: action
     });
   }
 
@@ -33,6 +36,10 @@ export default class QuizStore {
     this.currentQuizCategory = quizCategory;
     if (this.currentQuizCategory?.type)
       return this.getQuizzesByCategory(this.currentQuizCategory?.type);
+  }
+
+  setCurrentScore(score: number) {
+    this.currentScore = score;
   }
 
   async getQuizzesByCategory(categoryType: EQuizCategory) {
