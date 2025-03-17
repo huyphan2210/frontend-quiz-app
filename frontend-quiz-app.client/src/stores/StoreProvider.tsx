@@ -1,20 +1,20 @@
 import { FC, ReactNode } from "react";
 import QuizStore, { QuizStoreContext } from "./QuizStore";
-import PageStore, { PageStoreContext } from "./PageStore";
+import LoadingStore, { LoadingStoreContext } from "./LoadingStore";
 
 interface StoreProviderProps {
   children: ReactNode;
 }
 
 const StoreProvider: FC<StoreProviderProps> = ({ children }) => {
-  const pageInstance = new PageStore();
+  const loadingInstance = new LoadingStore();
   const quizStoreInstance = new QuizStore();
   return (
-    <PageStoreContext.Provider value={pageInstance}>
+    <LoadingStoreContext.Provider value={loadingInstance}>
       <QuizStoreContext.Provider value={quizStoreInstance}>
         {children}
       </QuizStoreContext.Provider>
-    </PageStoreContext.Provider>
+    </LoadingStoreContext.Provider>
   );
 };
 
