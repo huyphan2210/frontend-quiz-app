@@ -24,7 +24,9 @@ const categoryRecords: Record<string, EQuizCategory> = {
 
 const QuizPage: FC = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const categoryName = searchParams.get("category") || "";
+
   const quizStore = CheckAndReturnQuizStore();
 
   const SECONDS_LIMIT = 30;
@@ -32,8 +34,6 @@ const QuizPage: FC = () => {
   const [secondsPassed, setSecondPassed] = useState(0);
   const [currentQuiz, setCurrentQuiz] = useState<QuizResponse>();
   const [choice, setChoice] = useState<string>("");
-
-  const navigate = useNavigate();
 
   const setCurrentQuizCategory = () => {
     quizStore
@@ -46,6 +46,11 @@ const QuizPage: FC = () => {
   };
 
   useLayoutEffect(() => {
+    if (!categoryName) {
+      navigate(Pages.Welcome);
+      return;
+    }
+
     if (!quizStore.quizCategories || quizStore.quizCategories.length == 0) {
       quizStore.getQuizCategories().then(() => {
         setCurrentQuizCategory();
