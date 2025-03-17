@@ -1,5 +1,68 @@
 .loading {
-  min-height: 28.5rem;
-  display: grid;
-  place-items: center;
+  display: none;
+  margin: auto;
+  border: none;
+  background: none;
+
+  &:-internal-dialog-in-top-layer::backdrop {
+    background-color: var(--body-bg-color);
+  }
+
+  &.close {
+    animation: close-loading-modal ease-in-out 1.5s forwards;
+    &:-internal-dialog-in-top-layer::backdrop {
+      animation: close-loading-modal ease-in-out 1.5s forwards;
+    }
+  }
+
+  &[open] {
+    opacity: 1;
+    display: block;
+  }
+
+  &_time-bar {
+    --corner: 0.25rem;
+
+    appearance: none;
+    background-color: var(--button-bg-color);
+    padding: 0.25rem;
+    border-radius: calc(var(--corner) * 2);
+
+    &::-webkit-progress-bar {
+      background-color: inherit;
+      border-radius: var(--corner);
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--purple);
+      border-radius: var(--corner);
+      transition: width 0.5s ease-in-out;
+    }
+
+    &::-moz-progress-bar {
+      background-color: inherit;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+@keyframes open-loading-modal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes close-loading-modal {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
