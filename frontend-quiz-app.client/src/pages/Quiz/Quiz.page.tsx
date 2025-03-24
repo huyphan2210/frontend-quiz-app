@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import "./QuizPage.scss";
+import "./Quiz.page.scss";
 import { EQuizCategory, QuizResponse } from "../../api";
 import { CheckAndReturnQuizStore } from "../../utilities/storeHelper";
 import { decryptData } from "../../utilities/quizUtilities";
@@ -14,6 +14,7 @@ import { decryptData } from "../../utilities/quizUtilities";
 import iconCorrect from "../../assets/svgs/Main/icon-correct.svg";
 import iconIncorrect from "../../assets/svgs/Main/icon-incorrect.svg";
 import { Pages } from "../../utilities/global-var";
+import { observer } from "mobx-react";
 
 const categoryRecords: Record<string, EQuizCategory> = {
   [EQuizCategory.Html.toLowerCase()]: EQuizCategory.Html,
@@ -42,7 +43,7 @@ const QuizPage: FC = () => {
           (category) => category.type == categoryRecords[categoryName]
         )
       )
-      ?.then((quizzes) => setCurrentQuiz(quizzes[0]));
+      ?.then((quizzes) => setCurrentQuiz(quizzes![0]));
   };
 
   useLayoutEffect(() => {
@@ -238,6 +239,7 @@ const QuizPage: FC = () => {
         <a
           onClick={(e) => {
             e.preventDefault();
+            quizStore.setIsQuizFinished(true);
             navigate(Pages.Result);
           }}
           href={Pages.Result}
@@ -250,6 +252,6 @@ const QuizPage: FC = () => {
   );
 };
 
-const QuizPageObserver = QuizPage;
+const QuizPageObserver = observer(QuizPage);
 
 export default QuizPageObserver;
