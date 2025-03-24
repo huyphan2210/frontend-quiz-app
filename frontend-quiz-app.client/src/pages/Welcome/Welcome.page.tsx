@@ -1,16 +1,21 @@
-import { FC, MouseEventHandler, useLayoutEffect } from "react";
+import { FC, MouseEvent, useLayoutEffect } from "react";
 import "./Welcome.page.scss";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../../utilities/global-var";
 import { observer } from "mobx-react";
 import { CheckAndReturnQuizStore } from "../../utilities/storeHelper";
+import { QuizCategoryResponse } from "../../api";
 
 const WelcomePage: FC = () => {
   const quizStore = CheckAndReturnQuizStore();
   const navigation = useNavigate();
 
-  const handleNavigation: MouseEventHandler<HTMLAnchorElement> = (e) => {
+  const handleNavigation = (
+    e: MouseEvent<HTMLAnchorElement>,
+    category: QuizCategoryResponse
+  ) => {
     e.preventDefault();
+    quizStore.setCurrentQuizCategory(category);
     navigation(e.currentTarget.pathname + e.currentTarget.search);
   };
 
@@ -33,7 +38,7 @@ const WelcomePage: FC = () => {
           quizStore.quizCategories.map((category, i) => (
             <li key={i}>
               <a
-                onClick={handleNavigation}
+                onClick={(e) => handleNavigation(e, category)}
                 href={`${Pages.Quiz}?category=${category.name?.toLowerCase()}`}
                 className="category"
               >
