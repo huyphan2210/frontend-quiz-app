@@ -1,0 +1,89 @@
+.result {
+  &_heading {
+    font-weight: 300;
+    font-size: clamp(2.5rem, 9.5vw, 4rem);
+    margin-bottom: clamp(2.5rem, 9.5vw, 4rem);
+    span {
+      display: block;
+      font-weight: 500;
+    }
+  }
+
+  &_container {
+    width: 100%;
+    max-width: 40rem;
+
+    &_details {
+      background-color: var(--button-bg-color);
+      padding: clamp(2rem, 7.4vw, 3rem);
+      border-radius: clamp(0.75rem, 3.1625vw, 1.5rem);
+
+      &_quiz-category {
+        font-weight: 500;
+        font-size: clamp(1.125rem, 4.2vw, 1.75rem);
+        border-radius: 0.75rem;
+        border-width: 0;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(1rem, 4vw, 1.5rem);
+        margin-bottom: clamp(1rem, 4.734vw, 2.5rem);
+        img {
+          width: clamp(2.5rem, 12%, 3.5rem);
+          border-radius: 0.375rem;
+        }
+      }
+
+      &_score {
+        text-align: center;
+        color: var(--small-italic-text-color);
+
+        span {
+          display: block;
+          font-size: clamp(5.5rem, 21.1vw, 9rem);
+          color: var(--text-color);
+          line-height: 0.8;
+          margin-bottom: 1rem;
+        }
+      }
+    }
+
+    &_welcome-navigator {
+      --space: 0.75rem;
+       
+      display: block;
+      color: var(--pure-white);
+      background-color: var(--purple);
+      padding: var(--space);
+      margin-top: var(--space);
+      border: none;
+      border-radius: 0.75rem;
+      font-family: inherit;
+      font-size: clamp(1.125rem, 4.2vw, 1.75rem);
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .result {
+    &_container {
+      &_welcome-navigator {
+        --space: 2rem;
+        border-radius: 1.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  .result {
+    &_container {
+      max-width: 36.5rem;
+    }
+  }
+}
