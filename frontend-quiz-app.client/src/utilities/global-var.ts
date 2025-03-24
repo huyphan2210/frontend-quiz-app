@@ -1,5 +1,5 @@
 export enum Pages {
-  Welcome = "",
+  Welcome = "/",
   Quiz = "/quiz",
   Result = "/result",
 }
