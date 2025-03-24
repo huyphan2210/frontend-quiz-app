@@ -12,17 +12,22 @@ export default class QuizStore {
   currentQuizCategory?: QuizCategoryResponse;
   currentQuizzes?: QuizResponse[];
   currentScore = 0;
+  isQuizFinished = false;
   quizCategories?: QuizCategoryResponse[];
 
   constructor() {
     makeAutoObservable(this, {
+      currentQuizzes: observable,
       currentQuizCategory: observable,
       currentEncryptKey: observable,
       currentScore: observable,
+      isQuizFinished: observable,
       quizCategories: observable,
       getQuizCategories: action,
       setCurrentQuizCategory: action,
-      setCurrentScore: action
+      setCurrentQuizzes: action,
+      setCurrentScore: action,
+      setIsQuizFinished: action,
     });
   }
 
@@ -42,14 +47,30 @@ export default class QuizStore {
     this.currentScore = score;
   }
 
-  async getQuizzesByCategory(categoryType: EQuizCategory) {
+  setIsQuizFinished(isFinished: boolean) {
+    this.isQuizFinished = isFinished;
+  }
+
+  setCurrentQuizzes(quizzes?: QuizResponse[]) {
+    this.currentQuizzes = quizzes;
+  }
+
+  reset() {
+    this.setIsQuizFinished(false);
+    this.setCurrentQuizCategory();
+    this.setCurrentQuizzes();
+    this.setCurrentScore(0);
+  }
+
+  private async getQuizzesByCategory(categoryType: EQuizCategory) {
     if (!this.currentEncryptKey) {
       this.currentEncryptKey = await generateKey();
     }
     const keyBase64 = await exportKeyBase64(this.currentEncryptKey);
-    return getQuizzesByCategory(categoryType, keyBase64).then(
-      (quizzes) => (this.currentQuizzes = quizzes)
-    );
+    return getQuizzesByCategory(categoryType, keyBase64).then((quizzes) => {
+      this.setCurrentQuizzes(quizzes);
+      return this.currentQuizzes;
+    });
   }
 }
 
