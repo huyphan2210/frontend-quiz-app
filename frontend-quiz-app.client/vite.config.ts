@@ -25,29 +25,42 @@ if (!certificateName) {
   process.exit(-1);
 }
 
-const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
-const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+// const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+// const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
-if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-  if (
-    0 !==
-    child_process.spawnSync(
-      "dotnet",
-      [
-        "dev-certs",
-        "https",
-        "--export-path",
-        certFilePath,
-        "--format",
-        "Pem",
-        "--no-password",
-      ],
-      { stdio: "inherit" }
-    ).status
-  ) {
-    throw new Error("Could not create certificate.");
+if (process.env.VERCEL !== "1") {
+  if (!certificateName) {
+    console.error(
+      "Invalid certificate name. Run this script in the context of an npm/yarn script or pass --name=<<app>> explicitly."
+    );
+    process.exit(-1);
+  }
+
+  const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+  const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+
+  if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+    if (
+      0 !==
+      child_process.spawnSync(
+        "dotnet",
+        [
+          "dev-certs",
+          "https",
+          "--export-path",
+          certFilePath,
+          "--format",
+          "Pem",
+          "--no-password",
+        ],
+        { stdio: "inherit" }
+      ).status
+    ) {
+      throw new Error("Could not create certificate.");
+    }
   }
 }
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
