@@ -34,8 +34,7 @@ const Loading: FC<ILoading> = ({ isLoading }) => {
         setSecondPassed((prev) => prev + 0.1);
       }, 1000);
       setTimeout(() => {
-        if (secondIntervalIndex)
-clearInterval(secondIntervalIndex);
+        if (secondIntervalIndex) clearInterval(secondIntervalIndex);
       }, 40000);
     }, 25000);
 
