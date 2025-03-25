@@ -26,7 +26,7 @@ const Loading: FC<ILoading> = ({ isLoading }) => {
       setSecondPassed((prev) => prev + 1);
     }, 1000);
 
-    let secondIntervalIndex = 0;
+    let secondIntervalIndex: NodeJS.Timeout;
 
     setTimeout(() => {
       clearInterval(intervalIndex);
@@ -34,7 +34,8 @@ const Loading: FC<ILoading> = ({ isLoading }) => {
         setSecondPassed((prev) => prev + 0.1);
       }, 1000);
       setTimeout(() => {
-        clearInterval(secondIntervalIndex);
+        if (secondIntervalIndex)
+clearInterval(secondIntervalIndex);
       }, 40000);
     }, 25000);
 
