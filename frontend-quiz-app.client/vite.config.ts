@@ -66,9 +66,5 @@ export default defineConfig({
       },
     },
     port: 5173,
-    https: {
-      key: undefined,
-      cert: undefined,
-    },
   },
 });
