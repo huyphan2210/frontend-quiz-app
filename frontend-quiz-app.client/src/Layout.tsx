@@ -10,7 +10,7 @@ function Layout() {
   const loadingStore = CheckAndReturnLoadingStore();
 
   serviceOptions.axios = axios.create({
-    baseURL: import.meta.env.BASE_URL,
+    baseURL: process.env.BASE_URL,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
