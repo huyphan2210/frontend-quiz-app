@@ -127,6 +127,7 @@ const QuizPage: FC = () => {
     const seeResultButton = document.querySelector(
       ".quiz_form_see-result"
     ) as HTMLAnchorElement;
+    submitButton.disabled = true;
     submitButton.style.display = "none";
     if (currentQuiz?.order === quizStore.currentQuizzes?.length) {
       seeResultButton.style.display = "block";
