@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frontend-quiz-app.Server", "frontend-quiz-app.Server\frontend-quiz-app.Server.csproj", "{A0031E73-D77E-46C8-8477-E57FD45295DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "frontend-quiz-app.Server", "frontend-quiz-app.Server\frontend-quiz-app.Server.csproj", "{A0031E73-D77E-46C8-8477-E57FD45295DB}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "frontend-quiz-app.client", "frontend-quiz-app.client\frontend-quiz-app.client.esproj", "{42106A03-0E55-4AE0-8DBF-906A4F062958}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6D84FE0F-2391-46ED-895D-70AE602CC61E}"
+	ProjectSection(SolutionItems) = preProject
+		.slugignore = .slugignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
