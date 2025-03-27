@@ -39,6 +39,20 @@ namespace frontend_quiz_app.Server
                 app.UseSwaggerUI();
                 GenerateSwagger(app);
             }
+            else
+            {
+                const string allowOrigin = "AllowSpecificOrigin";
+
+                builder.Services.AddCors((options) =>
+                {
+                    options.AddPolicy(allowOrigin,
+                        policy => policy.WithOrigins(Environment.GetEnvironmentVariable("UI_URL") ?? "")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+                });
+
+                app.UseCors(allowOrigin);
+            }
 
             app.UseHttpsRedirection();
 
