@@ -22,6 +22,19 @@ namespace frontend_quiz_app.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
+            if (!builder.Environment.IsDevelopment())
+            {
+                const string allowOrigin = "AllowSpecificOrigin";
+
+                builder.Services.AddCors((options) =>
+                {
+                    options.AddPolicy(allowOrigin,
+                        policy => policy.WithOrigins(Environment.GetEnvironmentVariable("UI_URL") ?? "")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+                });
+            }
+
             AddCustomServices(builder);
             AddCustomRepositories(builder);
 
@@ -41,17 +54,7 @@ namespace frontend_quiz_app.Server
             }
             else
             {
-                const string allowOrigin = "AllowSpecificOrigin";
-
-                builder.Services.AddCors((options) =>
-                {
-                    options.AddPolicy(allowOrigin,
-                        policy => policy.WithOrigins(Environment.GetEnvironmentVariable("UI_URL") ?? "")
-                            .AllowAnyMethod()
-                            .AllowAnyHeader());
-                });
-
-                app.UseCors(allowOrigin);
+                app.UseCors();
             }
 
             app.UseHttpsRedirection();
