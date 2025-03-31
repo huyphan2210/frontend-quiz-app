@@ -82,7 +82,7 @@ namespace frontend_quiz_app.Server
         private static void AddSqlLiteConnection(IHostApplicationBuilder builder)
         {
             builder.Services.AddDbContext<QuizDbContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
         }
 
         private static void GenerateSwagger(WebApplication app)
