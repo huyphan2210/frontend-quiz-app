@@ -6,6 +6,7 @@ using frontend_quiz_app.Server.Repositories.QuizCategoryReadRepository;
 using frontend_quiz_app.Server.Repositories.QuizReadRepository;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace frontend_quiz_app.Server.Services
 {
@@ -57,7 +58,7 @@ namespace frontend_quiz_app.Server.Services
                 {
                     Category = quiz.Category,
                     EncodedAnswer = EncryptTextUsingKey(quiz.Answer, quizRequest.EncryptKeyBase64),
-                    Options = quiz.Options,
+                    Options = JsonSerializer.Deserialize<List<string>>(quiz.OptionsJson) ?? new List<string>(),
                     Question = quiz.Question,
                     Order = (byte?)(index + 1)
                 }).ToList();

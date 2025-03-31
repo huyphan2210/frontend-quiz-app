@@ -1,4 +1,5 @@
-﻿using frontend_quiz_app.Server.DTOs.Enums;
+﻿using System.Text.Json;
+using frontend_quiz_app.Server.DTOs.Enums;
 using frontend_quiz_app.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,13 +17,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What does HTML stand for?",
                     Answer = "Hyper Text Markup Language",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Hyper Trainer Marking Language",
                         "Hyper Text Marketing Language",
                         "Hyper Text Markup Language",
                         "Hyper Text Markup Leveler"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -30,13 +31,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which of the following is the correct structure for an HTML document?",
                     Answer = "<html><head></head><body></body></html>",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<html><head></head><body></body></html>",
                         "<head><html></html><body></body></head>",
                         "<body><head></head><html></html></body>",
                         "<html><body></body><head></head></html>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -44,13 +45,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which HTML element is used to define the title of a document?",
                     Answer = "<title>",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<head>",
                         "<title>",
                         "<header>",
                         "<top>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -58,13 +59,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the purpose of the <body> tag in HTML?",
                     Answer = "It contains all the content such as text, images, and links.",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "It defines the document's head section.",
                         "It contains all the content such as text, images, and links.",
                         "It is used to define the main content of an HTML document.",
                         "It specifies the body of the email content in HTML."
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -72,13 +73,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which HTML tag is used to create a hyperlink?",
                     Answer = "<a>",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<hyperlink>",
                         "<link>",
                         "<a>",
                         "<href>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -86,13 +87,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which tag is used to display images in HTML?",
                     Answer = "<img>",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<img>",
                         "<image>",
                         "<src>",
                         "<pic>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -100,13 +101,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What attribute is used to provide the path of an image in the <img> tag?",
                     Answer = "src",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "link",
                         "src",
                         "href",
                         "url"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -114,13 +115,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What attribute is used to provide the path of an image in the <img> tag?",
                     Answer = "src",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "link",
                         "src",
                         "href",
                         "url"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -128,13 +129,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which HTML tag is used to create an unordered list?",
                     Answer = "<ul>",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<ul>",
                         "<ol>",
                         "<list>",
                         "<li>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -142,13 +143,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What does the <br> tag do?",
                     Answer = "It inserts a line break.",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "It breaks the text into two sections.",
                         "It creates a bold text.",
                         "It inserts a line break.",
                         "It adds a new row in a table."
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -156,13 +157,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "In HTML, what does the `fieldset` tag do?",
                     Answer = "It is used to group related data in a form.",
                     Category = EQuizCategory.Html,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "It is used to group related data in a form.",
                         "It sets the field to a fixed size.",
                         "It automatically validates the fields within a form.",
                         "It hides the fields in a form."
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -170,13 +171,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What does CSS stand for?",
                     Answer = "Cascading Style Sheets",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Colorful Style Sheets",
                         "Computer Style Sheets",
                         "Cascading Style Sheets",
                         "Creative Style Sheets"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -184,13 +185,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which HTML attribute is used to define inline styles?",
                     Answer = "style",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "styles",
                         "style",
                         "class",
                         "font-style"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -198,13 +199,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How do you insert a comment in a CSS file?",
                     Answer = "/* this is a comment */",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "// this is a comment //",
                         "/* this is a comment */",
                         "-- this is a comment --",
                         "<!-- this is a comment -->"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -212,13 +213,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which property is used to change the background color of an element?",
                     Answer = "background-color",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "color",
                         "bgcolor",
                         "background-color",
                         "background"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -226,13 +227,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How do you apply a style to all <p> elements?",
                     Answer = "p { }",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "p { }",
                         ".p { }",
                         "#p { }",
                         "all.p { }"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -240,13 +241,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which property is used to change the font of an element?",
                     Answer = "font-family",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "font-style",
                         "text-style",
                         "font-family",
                         "typeface"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -254,13 +255,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How do you make each word in a text start with a capital letter?",
                     Answer = "text-transform: capitalize",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "text-transform: capitalize",
                         "text-transform: uppercase",
                         "text-style: capital",
                         "font-transform: capitalize"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -268,13 +269,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How do you select an element with the class name 'header'?",
                     Answer = ".header",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         ".header",
                         "#header",
                         "header",
                         "*header"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -282,13 +283,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the default value of the 'position' property?",
                     Answer = "static",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "relative",
                         "fixed",
                         "absolute",
                         "static"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -296,13 +297,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the purpose of the z-index property in CSS?",
                     Answer = "To specify the stack order of an element",
                     Category = EQuizCategory.Css,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "To count the number of elements",
                         "To set the magnification level of an element",
                         "To specify the stack order of an element",
                         "To create a zoom effect"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -310,13 +311,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which syntax is correct to output 'Hello World' in an alert box?",
                     Answer = "alert('Hello World');",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "alertBox('Hello World');",
                         "msg('Hello World');",
                         "alert('Hello World');",
                         "msgBox('Hello World');"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -324,13 +325,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How do you call a function named 'myFunction'?",
                     Answer = "myFunction()",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "call function myFunction()",
                         "call myFunction()",
                         "myFunction()",
                         "execute myFunction()"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -338,13 +339,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How to write an IF statement in JavaScript?",
                     Answer = "if (i == 5)",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "if i = 5 then",
                         "if (i == 5)",
                         "if i == 5",
                         "if i = 5"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -352,13 +353,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
                     Answer = "if (i != 5)",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "if (i <> 5)",
                         "if i =! 5 then",
                         "if (i != 5)",
                         "if i not = 5"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -366,13 +367,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How does a FOR loop start?",
                     Answer = "for (i = 0; i <= 5; i++)",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "for (i = 0; i <= 5)",
                         "for i = 1 to 5",
                         "for (i <= 5; i++)",
                         "for (i = 0; i <= 5; i++)"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -380,13 +381,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How can you add a single-line comment in JavaScript?",
                     Answer = "//This is a single-line comment",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "'This is a single-line comment",
                         "//This is a single-line comment",
                         "<!--This is a single-line comment-->",
                         "/* This is a single-line comment */"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -394,13 +395,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the correct way to write a JavaScript array?",
                     Answer = "var colors = ['red', 'green', 'blue']",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "var colors = (1:'red', 2:'green', 3:'blue')",
                         "var colors = ['red', 'green', 'blue']",
                         "var colors = 'red', 'green', 'blue'",
                         "var colors = 1 = ('red'), 2 = ('green'), 3 = ('blue')"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -408,13 +409,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "How do you find the number with the highest value of x and y?",
                     Answer = "Math.max(x, y)",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Math.ceil(x, y)",
                         "top(x, y)",
                         "Math.max(x, y)",
                         "Math.highest(x, y)"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -422,13 +423,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which operator is used to assign a value to a variable?",
                     Answer = "=",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "-",
                         "*",
                         "=",
                         "x"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -436,13 +437,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the correct way to write a JavaScript object?",
                     Answer = "var person = {firstName: 'John', lastName: 'Doe'};",
                     Category = EQuizCategory.JavaScript,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "var person = {firstName: 'John', lastName: 'Doe'};",
                         "var person = {firstName = 'John', lastName = 'Doe'};",
                         "var person = (firstName: 'John', lastName: 'Doe');",
                         "var person = (firstName = 'John', lastName = 'Doe');"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -450,13 +451,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What does 'WCAG' stand for?",
                     Answer = "Web Content Accessibility Guidelines",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Web Content Accessibility Guidelines",
                         "Web Compliance Accessibility Guide",
                         "Web Content Accessibility Goals",
                         "Website Compliance and Accessibility Guidelines"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -464,13 +465,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which element is used to provide alternative text for images for screen reader users?",
                     Answer = "<img alt='description'>",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<alt>",
                         "<figcaption>",
                         "<description>",
                         "<img alt='description'>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -478,13 +479,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What does ARIA stand for in web development?",
                     Answer = "Accessible Rich Internet Applications",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Accessible Rich Internet Applications",
                         "Advanced Responsive Internet Assistance",
                         "Accessible Responsive Internet Applications",
                         "Automated Responsive Internet Actions"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -492,13 +493,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which of the following is not a principle of the WCAG?",
                     Answer = "Dependable",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Perceivable",
                         "Dependable",
                         "Operable",
                         "Understandable"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -507,13 +508,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                         "Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal text?",
                     Answer = "4.5:1",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "3:1",
                         "4.5:1",
                         "7:1",
                         "2:1"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -522,13 +523,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                         "Which of the following elements is inherently focusable, meaning it can receive focus without a 'tabindex' attribute?",
                     Answer = "<a href='...'>",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "<div>",
                         "<span>",
                         "<a href='...'>",
                         "<p>"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -536,13 +537,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the purpose of the 'lang' attribute in an HTML page?",
                     Answer = "To indicate the language of the page content",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "To specify the scripting language",
                         "To define the character set",
                         "To indicate the language of the page content",
                         "To declare a language pack"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -550,13 +551,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which guideline ensures that content is accessible by keyboard as well as by mouse?",
                     Answer = "Keyboard Accessible",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "Keyboard Accessible",
                         "Mouse Independence",
                         "Device Independence",
                         "Operable Controls"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -564,13 +565,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "What is the role of 'skip navigation' links in web accessibility?",
                     Answer = "To skip over primary navigation to the main content",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "To skip over primary navigation to the main content",
                         "To provide shortcuts to different sections of the website",
                         "To help users skip unwanted sections like advertisements",
                         "To bypass broken links in the navigation"
-                    }
+                    })
                 },
                 new Quiz()
                 {
@@ -578,13 +579,13 @@ namespace frontend_quiz_app.Server.ORM.EntityTypeConfigurations
                     Question = "Which of these tools can help in checking the accessibility of a website?",
                     Answer = "Google Lighthouse",
                     Category = EQuizCategory.Accessibility,
-                    Options = new()
+                    OptionsJson = JsonSerializer.Serialize(new List<string>
                     {
                         "W3C Validator",
                         "Google Lighthouse",
                         "CSS Validator",
                         "JavaScript Console"
-                    }
+                    })
                 }
             );
         }
