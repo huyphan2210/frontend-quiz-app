@@ -21,12 +21,7 @@ namespace frontend_quiz_app.Server
 
             const string allowOrigin = "AllowSpecificOrigin";
 
-            var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
-
-            if (string.IsNullOrEmpty(uiUrl))
-            {
-                throw new Exception("--- Environment variable UI_URL is empty");
-            }
+            var uiUrl = Environment.GetEnvironmentVariable("UI_URL") ?? "";
 
             builder.Services.AddCors((options) =>
             {
