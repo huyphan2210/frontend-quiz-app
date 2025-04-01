@@ -25,11 +25,13 @@
   --text-color: var(--dark-navy);
   --small-italic-text-color: var(--grey-navy);
   --button-bg-color: var(--pure-white);
-   &.dark-mode {
+  --background-img: url(../assets/svgs/pattern-bg-light.svg);
+  &.dark-mode {
     --body-bg-color: var(--dark-navy);
     --text-color: var(--pure-white);
     --small-italic-text-color: var(--light-bluish);
     --button-bg-color: var(--navy);
+    --background-img: url(../assets/svgs/pattern-bg-dark.svg);
   }
 
   // Others
@@ -43,6 +45,9 @@ body {
   background-color: var(--body-bg-color);
   color: var(--text-color);
 
+  background-image: var(--background-img);
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
   #root {
     max-width: calc(72.5rem + var(--global-padding-inline) * 2);
     margin: auto;
@@ -57,5 +62,16 @@ body {
 @media screen and (min-width: 48rem) {
   :root {
     --global-padding-inline: 4rem;
+  }
+
+  body {
+    background-position: calc(100% - 330px) calc(100% - 493px);
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  body {
+    background-image: var(--background-img), var(--background-img);
+    background-position: -593px -413px, calc(100% + 437px) calc(100% + 369px);
   }
 }

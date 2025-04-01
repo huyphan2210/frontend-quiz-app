@@ -6,8 +6,6 @@ import Layout from "./Layout";
 import { BrowserRouter } from "react-router-dom";
 import StoreProvider from "./stores/StoreProvider";
 
-
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
