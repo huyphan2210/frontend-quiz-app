@@ -87,10 +87,22 @@ namespace frontend_quiz_app.Server
 
         private static void AddDatabaseConnection(IHostApplicationBuilder builder)
         {
+            var connectionString = string.Empty;
+            if (builder.Environment.IsDevelopment())
+            {
+                connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                var databaseUrl = new Uri(Environment.GetEnvironmentVariable("DATABASE_URL"));
+                var userInfo = databaseUrl.UserInfo.Split(':');
+
+                connectionString =
+                    $"Host={databaseUrl.Host};Port={databaseUrl.Port};Database={databaseUrl.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true;";
+            }
+
             builder.Services.AddDbContext<QuizDbContext>(options =>
-                options.UseNpgsql(builder.Environment.IsDevelopment()
-                    ? builder.Configuration.GetConnectionString("DefaultConnection")
-                    : Environment.GetEnvironmentVariable("DATABASE_URL")));
+                options.UseNpgsql(connectionString));
         }
 
         private static void GenerateSwagger(WebApplication app)
