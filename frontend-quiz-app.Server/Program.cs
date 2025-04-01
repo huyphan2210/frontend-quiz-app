@@ -81,15 +81,10 @@ namespace frontend_quiz_app.Server
 
         private static void AddDatabaseConnection(IHostApplicationBuilder builder)
         {
-            if(!builder.Environment.IsDevelopment())
-            {
-                builder.Services.AddDbContext<QuizDbContext>(options =>
-                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
-                return;
-            }
-
             builder.Services.AddDbContext<QuizDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(builder.Environment.IsDevelopment()
+                    ? builder.Configuration.GetConnectionString("DefaultConnection")
+                    : Environment.GetEnvironmentVariable("DATABASE_URL")));
         }
 
         private static void GenerateSwagger(WebApplication app)
