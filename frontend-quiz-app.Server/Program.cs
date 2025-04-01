@@ -25,6 +25,7 @@ namespace frontend_quiz_app.Server
             const string allowOrigin = "AllowSpecificOrigin";
 
             var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
+            Console.WriteLine("UI_URL: " + uiUrl);
             if (string.IsNullOrEmpty(uiUrl))
             {
                 throw new Exception("--- Environment variable UI_URL is empty");
