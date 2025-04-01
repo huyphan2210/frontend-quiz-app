@@ -27,7 +27,7 @@ namespace frontend_quiz_app.Server
             var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
             if (string.IsNullOrEmpty(uiUrl))
             {
-                Console.WriteLine("--- Environment variable UI_URL is empty");
+                throw new Exception("--- Environment variable UI_URL is empty");
             }
 
             builder.Services.AddCors((options) =>
