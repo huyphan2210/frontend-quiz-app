@@ -23,21 +23,22 @@ namespace frontend_quiz_app.Server
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
             const string allowOrigin = "AllowSpecificOrigin";
-            if (!builder.Environment.IsDevelopment())
+
+            var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
+            if (string.IsNullOrEmpty(uiUrl))
             {
-                var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
-                if (string.IsNullOrEmpty(uiUrl))
-                {
-                    Console.WriteLine("WARNING: UI_URL is not set. Allowing all origins for testing.");
-                }
-                builder.Services.AddCors((options) =>
-                {
-                    options.AddPolicy(allowOrigin,
-                        policy => policy.WithOrigins(uiUrl)
-                            .AllowAnyMethod()
-                            .AllowAnyHeader());
-                });
+                Console.WriteLine("--- Environment variable UI_URL is empty");
             }
+
+            builder.Services.AddCors((options) =>
+            {
+                options.AddPolicy(allowOrigin,
+                    policy => policy
+                        .WithOrigins(uiUrl)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
 
             AddCustomServices(builder);
             AddCustomRepositories(builder);
