@@ -37,8 +37,7 @@ namespace frontend_quiz_app.Server
                     policy => policy
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+                        .AllowAnyHeader());
             });
 
             AddCustomServices(builder);
