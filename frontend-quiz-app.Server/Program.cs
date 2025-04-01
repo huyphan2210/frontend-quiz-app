@@ -22,10 +22,9 @@ namespace frontend_quiz_app.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
+            const string allowOrigin = "AllowSpecificOrigin";
             if (!builder.Environment.IsDevelopment())
             {
-                const string allowOrigin = "AllowSpecificOrigin";
-
                 builder.Services.AddCors((options) =>
                 {
                     options.AddPolicy(allowOrigin,
@@ -60,7 +59,7 @@ namespace frontend_quiz_app.Server
             }
             else
             {
-                app.UseCors();
+                app.UseCors(allowOrigin);
             }
 
             app.UseHttpsRedirection();
