@@ -47,13 +47,15 @@ namespace frontend_quiz_app.Server
 
             var app = builder.Build();
 
+            app.UseCors(allowOrigin);
+
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<QuizDbContext>();
                 db.Database.Migrate();
             }
 
-            app.UseCors(allowOrigin);
+            
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
