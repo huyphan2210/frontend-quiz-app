@@ -36,6 +36,7 @@ namespace frontend_quiz_app.Server
                 options.AddPolicy(allowOrigin,
                     policy => policy
                         .WithOrigins(uiUrl)
+                        .WithHeaders("Access-Control-Allow-Origin")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
