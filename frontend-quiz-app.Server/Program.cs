@@ -25,7 +25,7 @@ namespace frontend_quiz_app.Server
             const string allowOrigin = "AllowSpecificOrigin";
 
             var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
-            Console.WriteLine("UI_URL: " + uiUrl);
+
             if (string.IsNullOrEmpty(uiUrl))
             {
                 throw new Exception("--- Environment variable UI_URL is empty");
@@ -35,9 +35,10 @@ namespace frontend_quiz_app.Server
             {
                 options.AddPolicy(allowOrigin,
                     policy => policy
-                        .AllowAnyOrigin()
+                        .WithOrigins(uiUrl)
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
+                        .AllowAnyHeader()
+                        .AllowCredentials());
             });
 
             AddCustomServices(builder);
@@ -98,7 +99,12 @@ namespace frontend_quiz_app.Server
             }
             else
             {
-                var databaseUrl = new Uri(Environment.GetEnvironmentVariable("DATABASE_URL"));
+                var databaseEnvUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                if (string.IsNullOrEmpty(databaseEnvUrl))
+                {
+                    throw new Exception("--- Environment variable DATABASE_URL is empty");
+                }
+                var databaseUrl = new Uri(databaseEnvUrl);
                 var userInfo = databaseUrl.UserInfo.Split(':');
 
                 connectionString =
