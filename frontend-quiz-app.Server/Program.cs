@@ -15,10 +15,7 @@ namespace frontend_quiz_app.Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c => { c.SchemaFilter<EnumSchemaFilter>(); });
 
@@ -43,21 +40,15 @@ namespace frontend_quiz_app.Server
 
             AddCustomServices(builder);
             AddCustomRepositories(builder);
-
             AddDatabaseConnection(builder);
 
             var app = builder.Build();
+            RunDatabaseMigrations(app);
 
             app.UseCors(allowOrigin);
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<QuizDbContext>();
-                db.Database.Migrate();
-            }
-
-            
             app.UseDefaultFiles();
+
             app.UseStaticFiles();
 
             // Configure the HTTP request pipeline.
@@ -92,12 +83,9 @@ namespace frontend_quiz_app.Server
 
         private static void AddDatabaseConnection(IHostApplicationBuilder builder)
         {
-            var connectionString = string.Empty;
-            if (builder.Environment.IsDevelopment())
-            {
-                connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            }
-            else
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            if (!builder.Environment.IsDevelopment())
             {
                 var databaseEnvUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
                 if (string.IsNullOrEmpty(databaseEnvUrl))
@@ -113,6 +101,15 @@ namespace frontend_quiz_app.Server
 
             builder.Services.AddDbContext<QuizDbContext>(options =>
                 options.UseNpgsql(connectionString));
+        }
+
+        private static void RunDatabaseMigrations(WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<QuizDbContext>();
+                db.Database.Migrate();
+            }
         }
 
         private static void GenerateSwagger(WebApplication app)
