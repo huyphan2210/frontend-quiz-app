@@ -38,7 +38,7 @@ namespace frontend_quiz_app.Server
             AddCustomServices(builder);
             AddCustomRepositories(builder);
 
-            AddSqlLiteConnection(builder);
+            AddDatabaseConnection(builder);
 
             var app = builder.Build();
 
@@ -79,8 +79,15 @@ namespace frontend_quiz_app.Server
             builder.Services.AddScoped<IQuizCategoryReadRepository, QuizCategoryReadRepository>();
         }
 
-        private static void AddSqlLiteConnection(IHostApplicationBuilder builder)
+        private static void AddDatabaseConnection(IHostApplicationBuilder builder)
         {
+            if(!builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDbContext<QuizDbContext>(options =>
+                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+                return;
+            }
+
             builder.Services.AddDbContext<QuizDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
         }
