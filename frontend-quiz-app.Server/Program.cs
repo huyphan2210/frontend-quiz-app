@@ -25,10 +25,15 @@ namespace frontend_quiz_app.Server
             const string allowOrigin = "AllowSpecificOrigin";
             if (!builder.Environment.IsDevelopment())
             {
+                var uiUrl = Environment.GetEnvironmentVariable("UI_URL");
+                if (string.IsNullOrEmpty(uiUrl))
+                {
+                    Console.WriteLine("WARNING: UI_URL is not set. Allowing all origins for testing.");
+                }
                 builder.Services.AddCors((options) =>
                 {
                     options.AddPolicy(allowOrigin,
-                        policy => policy.WithOrigins(Environment.GetEnvironmentVariable("UI_URL") ?? "")
+                        policy => policy.WithOrigins(uiUrl)
                             .AllowAnyMethod()
                             .AllowAnyHeader());
                 });
