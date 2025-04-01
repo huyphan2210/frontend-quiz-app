@@ -47,6 +47,7 @@ namespace frontend_quiz_app.Server
                 db.Database.Migrate();
             }
 
+            app.UseCors(allowOrigin);
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
@@ -56,10 +57,6 @@ namespace frontend_quiz_app.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
                 GenerateSwagger(app);
-            }
-            else
-            {
-                app.UseCors(allowOrigin);
             }
 
             app.UseHttpsRedirection();
